@@ -1,0 +1,31 @@
+{
+  "name": "yajsv",
+  "version": "0.0.1",
+  "description": "yet another json schema validator",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "lab -a code -v -t 99 -L"
+  },
+  "keywords": [
+    "json-schema",
+    "z-schema"
+  ],
+  "author": "simon-p-r <simon.ricaldone@circabs.com> (https://github.com/simon-p-r)",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "code": "1.x.x",
+    "joi": "6.x.x",
+    "lab": "5.x.x",
+    "mongodb": "^2.0.42"
+  },
+  "dependencies": {
+    "bson-objectid": "^1.1.1",
+    "find-key": "^1.0.1",
+    "hoek": "2.x.x",
+    "iban": "0.0.5",
+    "install": "^0.1.8",
+    "neo-async": "1.x.x",
+    "npm": "^2.14.0",
+    "z-schema": "3.x.x"
+  }
+}

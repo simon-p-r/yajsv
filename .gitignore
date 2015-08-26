@@ -1,0 +1,6 @@
+npm-debug.log
+coverage.html
+.idea
+node_modules
+!test.js
+test.js

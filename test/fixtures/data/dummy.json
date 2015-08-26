@@ -1,0 +1,17 @@
+{
+    "dbRef": {
+      "cn": "county",
+      "q" : "55db9e74a95462ac10414d9d"
+    },
+    "luRef": {
+      "lt": "bankCodeType",
+      "lv": ["iban", "bsb"]
+    },
+    "duration": "week",
+    "password": "1234",
+    "phone": "01923 670158",
+    "postcode": "AL9 5jn",
+    "vatNumber": "GB123456",
+    "contact": "owner",
+    "amt": "12345"
+}
