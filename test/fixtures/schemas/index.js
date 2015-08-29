@@ -18,7 +18,7 @@ var Note = require('./definitions/note.js');
 var Permission = require('./definitions/permission.js');
 var Screen = require('./collections/screen.js');
 var SourceFile = require('./definitions/sourceFile.js');
-var SystemConfig = require('./collections/SystemConfig.js');
+var SystemConfig = require('./collections/systemConfig.js');
 
 
 module.exports = {
