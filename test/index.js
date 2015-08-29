@@ -200,7 +200,7 @@ describe('Manager', function () {
         var schema = manager.create(Dummy).schema;
         manager.compile();
         var json = require('./fixtures/data/dummy.json');
-        Mongodb.connect('mongodb://localhost:27017/aim_db', { auto_reconnect: true }, function (err, db) {
+        Mongodb.connect('mongodb://localhost:27017/schemas', { auto_reconnect: true }, function (err, db) {
 
             manager.db = db;
 
