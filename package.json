@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "pretest": "mongo localhost:27017/schemas ./scripts/mongo.js",
-    "test": "lab -a code -v -t 99 -L"
+    "test": "lab -a code -v -t 99 -L -m 4000"
   },
   "keywords": [
     "json-schema",
