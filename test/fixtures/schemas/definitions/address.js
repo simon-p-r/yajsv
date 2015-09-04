@@ -29,12 +29,6 @@ module.exports = {
                 format: 'date',
                 maxLength: 50
             },
-            noteList: {
-                type: 'array',
-                items: {
-                    $ref: 'note'
-                }
-            },
             isBlocked: {
                 type: 'boolean'
             }

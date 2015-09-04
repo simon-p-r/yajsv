@@ -2,13 +2,12 @@
 
 var Code = require('code');
 var Lab = require('lab');
+var Mongodb = require('mongodb');
 var Manager = require('../lib');
 var Schemas = require('./fixtures/schemas/index.js');
-var Invalid = require('./fixtures/schemas/mocks/invalid.js');
-var Device = require('./fixtures/data/device.json');
-var Dbref = require('./fixtures/data/dbRef.json');
-var Lookup = require('./fixtures/data/lookup.json');
-var Mongodb = require('mongodb');
+var Invalid = require('./fixtures/schemas/collections/invalid.js');
+var Json = require('./fixtures/data/dummy.json');
+
 
 // Set-up lab
 var lab = exports.lab = Lab.script();
@@ -68,7 +67,7 @@ describe('Manager', function () {
                 }).to.not.throw();
 
         });
-        var removed = manager.remove('device', 'collections');
+        var removed = manager.remove('dummy', 'collections');
         expect(manager.schemaSet.collections.device).to.not.exist();
         expect(removed).to.be.true();
         var invalid = manager.remove('device', []);
@@ -89,10 +88,6 @@ describe('Manager', function () {
 
             var testSchema = Schemas[scheme];
             expect(manager.create(testSchema)).to.be.an.object();
-            expect(function () {
-
-                    manager.create(testSchema);
-                }).to.not.throw();
 
         });
         var obj = {
@@ -134,10 +129,6 @@ describe('Manager', function () {
 
             var testSchema = Schemas[scheme];
             expect(manager.create(testSchema)).to.be.an.object();
-            expect(function () {
-
-                    manager.create(testSchema);
-                }).to.not.throw();
 
         });
         var result = manager.compile();
@@ -170,11 +161,6 @@ describe('Manager', function () {
 
             var testSchema = Schemas[scheme];
             expect(manager.create(testSchema)).to.be.an.object();
-            expect(function () {
-
-                    manager.create(testSchema);
-                }).to.not.throw();
-
         });
         manager.compile();
         var formats = manager.getRegisteredFormats();
@@ -195,7 +181,7 @@ describe('Manager', function () {
 
         });
         manager.compile();
-        var schema = manager.find('device');
+        var schema = manager.find('dummy');
         expect(schema).to.be.an.object().to.include('id', 'type', 'format');
         var undef = manager.find({});
         expect(undef).to.be.undefined();
@@ -232,35 +218,28 @@ describe('Manager', function () {
 
     });
 
-    // it('should create errors with mongo validation for dbRef and lookup formats', function (done) {
-    //
-    //     var manager = new Manager({});
-    //     var forValidation = [];
-    //     var schemes = Object.keys(Schemas);
-    //     schemes.forEach(function (scheme) {
-    //
-    //         var testSchema = Schemas[scheme];
-    //         forValidation.push(testSchema);
-    //
-    //     });
-    //     manager.createMany(forValidation);
-    //     var Schema = manager.find('systemConfig');
-    //     var result = manager.compile();
-    //     Mongodb.connect('mongodb://localhost:27017/schemas', { auto_reconnect: true }, function (err, db) {
-    //
-    //         manager.db = db;
-    //         manager.validateData(Dbref, Schema, function (err, valid) {
-    //
-    //             expect(err).to.be.an.array();
-    //             expect(valid).to.be.false();
-    //             db.close();
-    //             done();
-    //         });
-    //
-    //     });
-    //
-    //
-    // });
+    it('should throw an error if base is missing from a definition or record collection', function (done) {
+
+        var manager = new Manager({});
+        var forValidation = [];
+        var schemes = Object.keys(Schemas);
+        schemes.forEach(function (scheme) {
+
+            var testSchema = Schemas[scheme];
+            if (testSchema.metaSchema.name !== 'address') {
+
+                forValidation.push(testSchema);
+            }
+
+        });
+        manager.createMany(forValidation);
+        expect(function () {
+
+            manager.compile();
+        }).to.throw();
+        done();
+
+    });
 
     it('should test validateData async method with dummy schema designed to test all custom formats', function (done) {
 
@@ -272,52 +251,50 @@ describe('Manager', function () {
             expect(manager.create(testSchema)).to.be.an.object();
 
         });
-        var Dummy = require('./fixtures/schemas/mocks/dummy.js');
-        var schema = manager.create(Dummy).schema;
+        var schema = manager.schemaSet.collections.dummy.schema;
         manager.compile();
-        var json = require('./fixtures/data/dummy.json');
         Mongodb.connect('mongodb://localhost:27017/schemas', { auto_reconnect: true }, function (err, db) {
 
             manager.db = db;
 
-            manager.validateData(json, schema, function (err, valid) {
+            manager.validateData(Json, schema, function (err, valid) {
 
                 expect(err).to.be.null();
                 expect(valid).to.be.true();
 
-                json.dbRef.q = 'Bedfordshire';
-                manager.validateData(json, schema, function (errA, validA) {
+                Json.dbRef.q = 'Bedfordshire';
+                manager.validateData(Json, schema, function (errA, validA) {
 
                     expect(errA).to.be.an.array();
                     expect(validA).to.be.false();
 
-                    json.dbRef.q = {
+                    Json.dbRef.q = {
                         county: 'Bedfordshire'
                     };
-                    manager.validateData(json, schema, function (errB, validB) {
+                    manager.validateData(Json, schema, function (errB, validB) {
 
                         expect(errB).to.be.null();
                         expect(validB).to.be.true();
 
-                        json.dbRef.cn = 'invalid';
-                        manager.validateData(json, schema, function (errC, validC) {
+                        Json.dbRef.cn = 'invalid';
+                        manager.validateData(Json, schema, function (errC, validC) {
 
                             expect(errC).to.be.an.array();
                             expect(validC).to.be.false();
 
-                            json.dbRef.cn = 'county';
-                            json.luRef.lv = null;
-                            delete json.luRef.lv;
-                            json.luRef.lv = 'iban';
-                            manager.validateData(json, schema, function (errD, validD) {
+                            Json.dbRef.cn = 'county';
+                            Json.luRef.lv = null;
+                            delete Json.luRef.lv;
+                            Json.luRef.lv = 'iban';
+                            manager.validateData(Json, schema, function (errD, validD) {
 
                                 expect(errD).to.be.null();
                                 expect(validD).to.be.true();
 
-                                json.luRef.lv = null;
-                                delete json.luRef.lv;
-                                json.luRef.lv = 'oooppps';
-                                manager.validateData(json, schema, function (errE, validE) {
+                                Json.luRef.lv = null;
+                                delete Json.luRef.lv;
+                                Json.luRef.lv = 'oooppps';
+                                manager.validateData(Json, schema, function (errE, validE) {
 
                                     expect(errE).to.be.an.array();
                                     expect(validE).to.be.false();

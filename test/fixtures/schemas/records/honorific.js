@@ -5,7 +5,7 @@ module.exports = {
     metaSchema: {
         description: 'Lookup honorific values',
         type: 'record',
-        base: 'lookup',
+        base: 'dummy',
         jsonSchema: 'v4',
         name: 'honorific',
         version: 1,
@@ -13,7 +13,6 @@ module.exports = {
     },
 
     schema: {
-        id: 'honorific',
         properties: {}
     }
 
