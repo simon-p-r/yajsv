@@ -21,18 +21,21 @@ module.exports = {
         id: 'gbsInstance',
         properties: {
             instanceName: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             completionMessagesException: {
                 type: 'array',
                 items: {
-                    type: 'string'
+                    type: 'string',
+                    maxLength: 50
                 }
             },
             completionMessagesSuccessful: {
                 type: 'array',
                 items: {
-                    type: 'string'
+                    type: 'string',
+                    maxLength: 50
                 }
             },
             defaultAccountIdPrefix: {
@@ -44,7 +47,8 @@ module.exports = {
                 maxLength: 1
             },
             description: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             funcinqName: {
                 type: 'string',
@@ -100,7 +104,8 @@ module.exports = {
                         type: 'string',
                         maxLength: 30
                     }
-                }
+                },
+                additionalProperties: false
             },
             useMnemonicKeys: {
                 type: 'boolean'
@@ -129,22 +134,28 @@ module.exports = {
                         maxLength: 1
                     },
                     continue: {
-                        type: 'string'
+                        type: 'string',
+                        maxLength: 50
                     },
                     limitId: {
-                        type: 'string'
+                        type: 'string',
+                        maxLength: 50
                     },
                     override: {
-                        type: 'string'
+                        type: 'string',
+                        maxLength: 50
                     },
                     visualCheck: {
-                        type: 'string'
+                        type: 'string',
+                        maxLength: 50
                     }
-                }
+                },
+                additionalProperties: false
 
             },
             verifyFieldNameSuffix: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             }
         }
     }

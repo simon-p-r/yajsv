@@ -1,0 +1,18 @@
+{
+    "systemConfigSID": "7777",
+    "systemOwner": {
+      "q": {
+        "hello": "world"
+      },
+      "cn": "county"
+    },
+    "ccTag": {},
+    "domainName": "7777",
+    "businessDate": "7777",
+    "baseCcy": {
+      "q": {
+        "hello": "world"
+      },
+      "cn": "county"
+    }
+}

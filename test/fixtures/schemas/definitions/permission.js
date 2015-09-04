@@ -20,9 +20,21 @@ module.exports = {
         id: 'permission',
         properties: {
 
-            feature: { $ref: 'dbRef' },
-            function: { type: 'string' },
-            actions: { type: 'array', items: { type: 'string' } }
+            feature: {
+                $ref: 'dbRef'
+            },
+            function: {
+                type: 'string',
+                maxLength: 50
+            },
+            actions: {
+                type: 'array',
+                items: {
+                    type: 'string',
+                    maxLength: 50
+
+                }
+            }
 
             //feature            :{type:'string',format:'sid',collection:'feature'},
             //function           :{type:'string'},                    // can be blank

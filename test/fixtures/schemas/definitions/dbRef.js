@@ -17,10 +17,18 @@ module.exports = {
         format: 'dbRef',
         properties: {
             cn: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             q: {
-                type: ['string', 'object']
+                type: ['string', 'object'],
+                maxLength: 50,
+                patternProperties: {
+                    '/(?=.*[a-zA-Z])/': {
+                        type: 'string',
+                        maxLength: 50
+                    }
+                }
             }
         },
         required: ['cn', 'q']

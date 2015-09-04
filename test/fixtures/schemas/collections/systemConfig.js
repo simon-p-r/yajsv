@@ -26,25 +26,30 @@ module.exports = {
                 $ref: 'dbRef'
             },
             businessDate: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             domainName: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },            // domain name for email use - i.e. without wwww
             ccTag: {
                 type: 'object',
                 format: 'lookup',
                 properties: {
                     ccTag: {
-                        type: 'string'
+                        type: 'string',
+                        maxLength: 50
                     }
-                }
+                },
+                additionalProperties: false
             },
             systemOwner: {
                 $ref: 'dbRef'
             },
             systemConfigSID: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },   // default:'systemConfig',length:12},
             authentication: {
                 type: 'object',
@@ -57,16 +62,19 @@ module.exports = {
                     },
                     tokenExpiry: {
                         type: 'string',
+                        maxLength: 50,
                         format: 'duration'
                     },
                     changePasswordExpiry: {
                         type: 'string',
+                        maxLength: 50,
                         format: 'duration'
                     },
                     timeoutSecs: {
                         type: 'integer'
                     }
-                }
+                },
+                additionalProperties: false
             },
             options: {
                 type: 'object',
@@ -77,7 +85,8 @@ module.exports = {
                             type: 'integer'
                         }
                     }
-                }
+                },
+                additionalProperties: false
             }
 
         }

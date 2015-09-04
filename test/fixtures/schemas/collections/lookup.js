@@ -23,30 +23,32 @@ module.exports = {
         required: ['recType', 'luValue'],
         properties: {
             recType: {
-                type: 'string'
-            },
-            recProps: {
-                type: 'object'
+                type: 'string',
+                maxLength: 50
             },
             luValue: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             useAsIs: {
                 type: 'integer'
             },
             valueText: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             sequence: {
                 type: 'integer',
                 minimum: 0
             },
             description: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             valueInt: {
                 type: 'integer'
             }
         }
+
     }
 };

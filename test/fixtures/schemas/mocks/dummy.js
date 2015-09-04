@@ -25,56 +25,80 @@ module.exports = {
                 format: 'dbRef',
                 properties: {
                     cn: {
-                        type: 'string'
+                        type: 'string',
+                        maxLength: 50
                     },
                     q: {
-                        type: ['string', 'object']
+                        type: ['string', 'object'],
+                        maxLength: 50,
+                        patternProperties: {
+                            '/(?=.*[a-zA-Z])/': {
+                                type: 'string',
+                                maxLength: 50
+                            }
+                        }
                     }
-                }
+                },
+                additionalProperties: false
             },
             luRef: {
                 type: 'object',
                 format: 'lookup',
                 properties: {
                     lt: {
-                        type: 'string'
+                        type: 'string',
+                        maxLength: 50
                     },
                     lv: {
-                        type: ['string', 'array']
+                        type: ['string', 'array'],
+                        maxLength: 50,
+                        items: {
+                            type: 'string',
+                            maxLength: 50
+                        }
                     }
-                }
+                },
+                additionalProperties: false
             },
             duration: {
                 type: 'string',
-                format: 'duration'
+                format: 'duration',
+                maxLength: 50
 
             },
             password: {
                 type: 'string',
+                maxLength: 50,
                 format: 'password'
             },
             phone: {
                 type: 'string',
+                maxLength: 50,
                 format: 'phone'
             },
             postcode: {
                 type: 'string',
+                maxLength: 50,
                 format: 'postcode'
             },
             vatNumber: {
                 type: 'string',
+                maxLength: 50,
                 format: 'vat'
             },
             iban: {
                 type: 'string',
+                maxLength: 50,
                 format: 'iban'
             },
             contact: {
                 type: 'string',
+                maxLength: 50,
                 format: 'contact'
             },
             amt: {
                 type: 'string',
+                maxLength: 50,
                 format: 'amt'
             }
         }

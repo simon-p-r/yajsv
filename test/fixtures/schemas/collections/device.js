@@ -23,13 +23,16 @@ module.exports = {
         properties: {
 
             tdid: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             description: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             deviceName: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             }
 
 

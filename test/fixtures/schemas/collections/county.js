@@ -16,14 +16,17 @@ module.exports = {
     },
 
     schema: {
+        id: 'county',
         required: ['county', 'country'],
         properties: {
 
             county: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             country: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             }
 
         }

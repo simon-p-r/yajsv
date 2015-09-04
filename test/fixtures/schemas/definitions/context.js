@@ -27,10 +27,12 @@ module.exports = {
                 $ref: 'dbRef'
             },
             host: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             deviceTrustedId: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             user: {
                 $ref: 'dbRef'

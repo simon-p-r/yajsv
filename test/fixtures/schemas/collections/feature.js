@@ -25,13 +25,16 @@ module.exports = {
         properties: {
 
             feature: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             function: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             description: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             }
 
         }

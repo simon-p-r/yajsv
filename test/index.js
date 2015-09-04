@@ -4,7 +4,10 @@ var Code = require('code');
 var Lab = require('lab');
 var Manager = require('../lib');
 var Schemas = require('./fixtures/schemas/index.js');
+var Invalid = require('./fixtures/schemas/mocks/invalid.js');
 var Device = require('./fixtures/data/device.json');
+var Dbref = require('./fixtures/data/dbRef.json');
+var Lookup = require('./fixtures/data/lookup.json');
 var Mongodb = require('mongodb');
 
 // Set-up lab
@@ -33,8 +36,20 @@ describe('Manager', function () {
 
             var manager = new Manager();
         };
-
         expect(fn).throws(Error, 'Manager must be constructed with a valid options object');
+        done();
+
+    });
+
+    it('should throw an error if using a format without registering with z-schema', function (done) {
+
+        var manager = new Manager({});
+        var schemes = Object.keys(Schemas);
+        var fn = function () {
+
+            manager.registerFormats(['invalid']);
+        };
+        expect(fn).throws(Error);
         done();
 
     });
@@ -53,8 +68,13 @@ describe('Manager', function () {
                 }).to.not.throw();
 
         });
-        manager.remove('device', 'collections');
+        var removed = manager.remove('device', 'collections');
         expect(manager.schemaSet.collections.device).to.not.exist();
+        expect(removed).to.be.true();
+        var invalid = manager.remove('device', []);
+        expect(invalid).to.be.false();
+        var moreInvalid = manager.remove({}, 'collections');
+        expect(moreInvalid).to.be.false();
         manager.resetAll();
         expect(manager.schemaSet.collections.control).to.not.exist();
         done();
@@ -80,10 +100,25 @@ describe('Manager', function () {
             custom: function (str) {
 
                 return true;
+            },
+            anotherCustom: function (str) {
+
+                return true;
             }
         };
-        manager.addFormat('custom', obj.custom);
-        manager.addFormat('duration', obj.custom);
+        manager.addFormats(obj);
+        var invalid = {
+
+            duration: function (str) {
+
+                return true;
+            }
+        };
+        var fn = function () {
+
+            manager.addFormats(invalid);
+        };
+        expect(fn).throws(Error);
         var formats = manager.getRegisteredFormats();
         expect(formats).to.be.an.array().and.include(['custom']);
         done();
@@ -112,27 +147,17 @@ describe('Manager', function () {
 
     });
 
-    it('should create schema objects and fail with zSchema strictMode validation', function (done) {
+    it('should create error objects for failed z-schema validation', function (done) {
 
         var manager = new Manager({
             zSchema: {
                 strictMode: true
             }
         });
-        var schemes = Object.keys(Schemas);
-        schemes.forEach(function (scheme) {
-
-            var testSchema = Schemas[scheme];
-            expect(manager.create(testSchema)).to.be.an.object();
-            expect(function () {
-
-                    manager.create(testSchema);
-                }).to.not.throw();
-
-        });
+        manager.create(Invalid);
         var result = manager.compile();
         expect(result.valid).to.be.false();
-        expect(Object.keys(result.errors)).to.have.length(19);
+        expect(Object.keys(result.errors)).to.have.length(1);
         done();
 
     });
@@ -172,6 +197,8 @@ describe('Manager', function () {
         manager.compile();
         var schema = manager.find('device');
         expect(schema).to.be.an.object().to.include('id', 'type', 'format');
+        var undef = manager.find({});
+        expect(undef).to.be.undefined();
         var formats = manager.getFormats();
         expect(formats).to.be.an.array();
         var collections = manager.getCollections();
@@ -185,6 +212,55 @@ describe('Manager', function () {
         done();
 
     });
+
+    it('should create an array of schema objects and pass zSchema validation', function (done) {
+
+        var manager = new Manager({});
+        var forValidation = [];
+        var schemes = Object.keys(Schemas);
+        schemes.forEach(function (scheme) {
+
+            var testSchema = Schemas[scheme];
+            forValidation.push(testSchema);
+
+        });
+        manager.createMany(forValidation);
+        var result = manager.compile();
+        expect(result.valid).to.be.true();
+        expect(result.errors).to.be.null();
+        done();
+
+    });
+
+    // it('should create errors with mongo validation for dbRef and lookup formats', function (done) {
+    //
+    //     var manager = new Manager({});
+    //     var forValidation = [];
+    //     var schemes = Object.keys(Schemas);
+    //     schemes.forEach(function (scheme) {
+    //
+    //         var testSchema = Schemas[scheme];
+    //         forValidation.push(testSchema);
+    //
+    //     });
+    //     manager.createMany(forValidation);
+    //     var Schema = manager.find('systemConfig');
+    //     var result = manager.compile();
+    //     Mongodb.connect('mongodb://localhost:27017/schemas', { auto_reconnect: true }, function (err, db) {
+    //
+    //         manager.db = db;
+    //         manager.validateData(Dbref, Schema, function (err, valid) {
+    //
+    //             expect(err).to.be.an.array();
+    //             expect(valid).to.be.false();
+    //             db.close();
+    //             done();
+    //         });
+    //
+    //     });
+    //
+    //
+    // });
 
     it('should test validateData async method with dummy schema designed to test all custom formats', function (done) {
 

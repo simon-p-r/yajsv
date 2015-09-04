@@ -22,10 +22,13 @@ module.exports = {
                 type: 'object',
                 properties: {
 
-                    mime: { type: 'string' }
+                    mime: {
+                        type: 'string',
+                        maxLength: 50
+                    }
 
                 },
-
+                additionalProperties: false,
                 required: ['mime']
             }
         }

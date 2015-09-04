@@ -46,7 +46,8 @@ module.exports = {
                 $ref: 'dbRef'
             },
             description: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             visualCheck: {
                 type: 'boolean'
@@ -55,10 +56,12 @@ module.exports = {
                 type: 'boolean'
             },
             firstScreen: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             funcinqInfo: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             skipFirstScreen: {
                 type: 'boolean'
@@ -67,13 +70,24 @@ module.exports = {
                 type: 'boolean'
             },
             gbsRefExtractPrefix: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             removeSpacesFromTargetRef: {
                 type: 'boolean'
             },
             keyFlds: {
-                type: 'array'
+                type: 'array',
+                items: {
+                    type: 'object',
+                    patternProperties: {
+                        '/(?=.*[a-zA-Z])/': {
+                            type: 'string',
+                            maxLength: 50
+                        }
+                    }
+                },
+                additionalProperties: false
             },
             chainSet: {
                 type: 'object',
@@ -82,7 +96,8 @@ module.exports = {
                         type: 'string',
                         maxLength: 30
                     }
-                }
+                },
+                additionalProperties: false
             }
         }
     }

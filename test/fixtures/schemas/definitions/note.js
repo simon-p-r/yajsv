@@ -20,7 +20,8 @@ module.exports = {
                 format: 'date-time'
             },
             text: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             user: {
                 $ref: 'dbRef'
@@ -29,7 +30,8 @@ module.exports = {
                 $ref: 'luRef'
             },
             subject: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             }
 
 

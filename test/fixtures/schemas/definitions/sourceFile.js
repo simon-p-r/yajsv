@@ -16,13 +16,16 @@ module.exports = {
         properties: {
 
             sourceDevice: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             sourceName: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             sourcePath: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             }
 
         }

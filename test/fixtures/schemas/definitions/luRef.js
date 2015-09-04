@@ -16,10 +16,16 @@ module.exports = {
         format: 'lookup',
         properties: {
             lt: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             lv: {
-                type: ['string', 'array']
+                type: ['string', 'array'],
+                maxLength: 50,
+                items: {
+                    type: 'string',
+                    maxLength: 50
+                }
             }
         },
         required: ['lt', 'lv']

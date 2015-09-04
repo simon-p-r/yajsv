@@ -37,10 +37,12 @@ module.exports = {
                 maxLength: 2
             },
             description: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             },
             form: {
-                type: 'string'
+                type: 'string',
+                maxLength: 50
             }
         }
     }

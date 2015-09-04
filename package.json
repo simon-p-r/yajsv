@@ -1,6 +1,6 @@
 {
   "name": "yajsv",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "yet another json schema validator",
   "main": "lib/index.js",
   "scripts": {
@@ -20,13 +20,11 @@
     "mongodb": "^2.0.42"
   },
   "dependencies": {
-    "bson-objectid": "^1.1.1",
-    "find-key": "^1.0.1",
+    "bson-objectid": "1.x.x",
+    "find-key": "1.x.x",
     "hoek": "2.x.x",
     "iban": "0.0.5",
-    "install": "^0.1.8",
     "neo-async": "1.x.x",
-    "npm": "^2.14.0",
     "z-schema": "3.x.x"
   }
 }
