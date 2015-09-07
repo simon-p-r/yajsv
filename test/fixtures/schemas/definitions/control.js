@@ -38,7 +38,6 @@ module.exports = {
             updatedBy: {
                 $ref: 'dbRef'
             }
-        },
-        additionalProperties: false
+        }
     }
 };

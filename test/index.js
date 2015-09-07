@@ -259,53 +259,55 @@ describe('Manager', function () {
 
             manager.validateData(Json, schema, function (err, valid) {
 
-                expect(err).to.be.null();
+                expect(err).to.not.exist();
                 expect(valid).to.be.true();
 
                 Json.dbRef.q = 'Bedfordshire';
+
                 manager.validateData(Json, schema, function (errA, validA) {
 
-                    expect(errA).to.be.an.array();
+                    expect(errA).to.exists();
                     expect(validA).to.be.false();
 
                     Json.dbRef.q = {
                         county: 'Bedfordshire'
                     };
+
                     manager.validateData(Json, schema, function (errB, validB) {
 
-                        expect(errB).to.be.null();
+                        expect(errB).to.not.exist();
                         expect(validB).to.be.true();
 
                         Json.dbRef.cn = 'invalid';
+
                         manager.validateData(Json, schema, function (errC, validC) {
 
-                            expect(errC).to.be.an.array();
+                            expect(errC).to.exists();
                             expect(validC).to.be.false();
 
                             Json.dbRef.cn = 'county';
                             Json.luRef.lv = null;
                             delete Json.luRef.lv;
                             Json.luRef.lv = 'iban';
+
                             manager.validateData(Json, schema, function (errD, validD) {
 
-                                expect(errD).to.be.null();
+                                expect(errD).to.not.exist();
                                 expect(validD).to.be.true();
 
                                 Json.luRef.lv = null;
                                 delete Json.luRef.lv;
                                 Json.luRef.lv = 'oooppps';
+
                                 manager.validateData(Json, schema, function (errE, validE) {
 
-                                    expect(errE).to.be.an.array();
+                                    expect(errE).to.exists();
                                     expect(validE).to.be.false();
                                     db.close();
                                     done();
 
                                 });
-
-
                             });
-
                         });
                     });
                 });
