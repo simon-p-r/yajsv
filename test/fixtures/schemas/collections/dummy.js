@@ -39,6 +39,7 @@ module.exports = {
                         }
                     }
                 },
+                required: ['cn', 'q'],
                 additionalProperties: false
             },
             luRef: {
@@ -101,6 +102,7 @@ module.exports = {
                 maxLength: 50,
                 format: 'amt'
             }
-        }
+        },
+        required: ['dbRef']
     }
 };
