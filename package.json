@@ -11,6 +11,10 @@
     "json-schema",
     "z-schema"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:simon-p-r/yajsv.git"
+  },
   "author": "simon-p-r <simon.ricaldone@circabs.com> (https://github.com/simon-p-r)",
   "license": "BSD-3-Clause",
   "devDependencies": {
