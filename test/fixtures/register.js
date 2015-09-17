@@ -36,7 +36,7 @@ module.exports = {
             query = { _id: id };
         } else if (typeof obj.q === 'string') {
             query = { sid: obj.q };
-        } else if (typeof obj.q === 'object') {
+        } else {
             query = obj.q;
         }
         var valid = internals.findCollection(this.collections, obj.cn);
@@ -45,7 +45,7 @@ module.exports = {
         }
         var collection = this.db.collection(obj.cn);
         collection.findOne(query, function (err, rec) {
-            // console.log('DBREF', query, err);s
+
             if (err || !rec) {
                 return callback(false);
             }

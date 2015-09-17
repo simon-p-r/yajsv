@@ -4,6 +4,7 @@ var Code = require('code');
 var Lab = require('lab');
 var Mongodb = require('mongodb');
 var Manager = require('../lib');
+var Register = require('./fixtures/register.js');
 var Schemas = require('./fixtures/schemas/index.js');
 var Invalid = require('./fixtures/schemas/collections/invalid.js');
 var Json = require('./fixtures/data/dummy.json');
@@ -40,22 +41,11 @@ describe('Manager', function () {
 
     });
 
-    it('should throw an error if using a format without registering with z-schema', function (done) {
-
-        var manager = new Manager({});
-        var schemes = Object.keys(Schemas);
-        var fn = function () {
-
-            manager.registerFormats(['invalid']);
-        };
-        expect(fn).throws(Error);
-        done();
-
-    });
-
     it('should expose crud methods', function (done) {
 
-        var manager = new Manager({});
+        var manager = new Manager({
+            registers: Register
+        });
         var schemes = Object.keys(Schemas);
         schemes.forEach(function (scheme) {
 
@@ -82,7 +72,9 @@ describe('Manager', function () {
 
     it('should add custom formats to core registered formats', function (done) {
 
-        var manager = new Manager({});
+        var manager = new Manager({
+            registers: Register
+        });
         var schemes = Object.keys(Schemas);
         schemes.forEach(function (scheme) {
 
@@ -101,19 +93,7 @@ describe('Manager', function () {
                 return true;
             }
         };
-        manager.addFormats(obj);
-        var invalid = {
-
-            duration: function (str) {
-
-                return true;
-            }
-        };
-        var fn = function () {
-
-            manager.addFormats(invalid);
-        };
-        expect(fn).throws(Error);
+        manager.registerFormats(obj);
         var formats = manager.getRegisteredFormats();
         expect(formats).to.be.an.array().and.include(['custom']);
         done();
@@ -123,7 +103,9 @@ describe('Manager', function () {
 
     it('should create schema objects and pass zSchema validation', function (done) {
 
-        var manager = new Manager({});
+        var manager = new Manager({
+            registers: Register
+        });
         var schemes = Object.keys(Schemas);
         schemes.forEach(function (scheme) {
 
@@ -138,12 +120,55 @@ describe('Manager', function () {
 
     });
 
+    it('should throw if formats have not been registered', function (done) {
+
+        var manager = new Manager({
+
+        });
+        var schemes = Object.keys(Schemas);
+        schemes.forEach(function (scheme) {
+
+            var testSchema = Schemas[scheme];
+            manager.create(testSchema);
+        });
+        expect(function () {
+
+            manager.compile();
+        }).throws();
+        done();
+
+    });
+
+    it('should test if formats have been registered', function (done) {
+
+        var manager = new Manager({
+
+        });
+        delete Schemas.county.schema.properties.control;
+        manager.create(Schemas.county);
+        manager.unRegisterFormats(['duration', 'dbRef', 'password', 'phone', 'postcode', 'vat', 'lookup', 'iban', 'contact', 'amt']);
+        // manager.unRegisterFormat();
+        // manager.unRegisterFormat();
+        // manager.unRegisterFormat('phone');
+        // manager.unRegisterFormat('postcode');
+        // manager.unRegisterFormat('vat');
+        // manager.unRegisterFormat('lookup');
+        // manager.unRegisterFormat('iban');
+        // manager.unRegisterFormat('contact');
+        // manager.unRegisterFormat('amt');
+        manager.compile();
+        done();
+
+    });
+
+
     it('should create error objects for failed z-schema validation', function (done) {
 
         var manager = new Manager({
             zSchema: {
                 strictMode: true
-            }
+            },
+            registers: Register
         });
         manager.create(Invalid);
         var result = manager.compile();
@@ -153,26 +178,13 @@ describe('Manager', function () {
 
     });
 
-    it('should create schema objects for validation', function (done) {
 
-        var manager = new Manager({});
-        var schemes = Object.keys(Schemas);
-        schemes.forEach(function (scheme) {
-
-            var testSchema = Schemas[scheme];
-            expect(manager.create(testSchema)).to.be.an.object();
-        });
-        manager.compile();
-        var formats = manager.getRegisteredFormats();
-        expect(formats).to.be.an.array().and.include(['date-time']);
-        manager.registerFormats(formats);
-        done();
-
-    });
 
     it('should expose manager lookup methods', function (done) {
 
-        var manager = new Manager({ });
+        var manager = new Manager({
+            registers: Register
+        });
         var schemes = Object.keys(Schemas);
         schemes.forEach(function (scheme) {
 
@@ -188,12 +200,8 @@ describe('Manager', function () {
         var formats = manager.getFormats();
         expect(formats).to.be.an.array();
         var collections = manager.getCollections();
-        var definitions = manager.getDefinitions();
-        var records = manager.getRecords();
         var schemas = manager.getSchemas();
         expect(collections).to.be.an.array();
-        expect(definitions).to.be.an.array();
-        expect(records).to.be.an.array();
         expect(schemas).to.be.an.array();
         done();
 
@@ -201,7 +209,9 @@ describe('Manager', function () {
 
     it('should create an array of schema objects and pass zSchema validation', function (done) {
 
-        var manager = new Manager({});
+        var manager = new Manager({
+            registers: Register
+        });
         var forValidation = [];
         var schemes = Object.keys(Schemas);
         schemes.forEach(function (scheme) {
@@ -218,32 +228,11 @@ describe('Manager', function () {
 
     });
 
-    it('should throw an error if base is missing from a definition or record collection', function (done) {
-
-        var manager = new Manager({});
-        var forValidation = [];
-        var schemes = Object.keys(Schemas);
-        schemes.forEach(function (scheme) {
-
-            var testSchema = Schemas[scheme];
-            if (testSchema.metaSchema.name !== 'address') {
-
-                forValidation.push(testSchema);
-            }
-
-        });
-        manager.createMany(forValidation);
-        expect(function () {
-
-            manager.compile();
-        }).to.throw();
-        done();
-
-    });
-
     it('should test validateData async method with dummy schema designed to test all custom formats', function (done) {
 
-        var manager = new Manager({ });
+        var manager = new Manager({
+            registers: Register
+        });
         var schemes = Object.keys(Schemas);
         schemes.forEach(function (scheme) {
 

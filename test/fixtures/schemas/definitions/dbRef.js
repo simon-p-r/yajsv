@@ -12,9 +12,9 @@ module.exports = {
 
     schema: {
 
-        id: 'dbRef',
-        // type: 'object',
         format: 'dbRef',
+        type: 'object',
+        additionalProperties: false,
         properties: {
             cn: {
                 type: 'string',

@@ -2,8 +2,7 @@
 
 var Code = require('code');
 var Lab = require('lab');
-var Register = require('../lib/register.js');
-
+var Register = require('./fixtures/register.js');
 
 // Set-up lab
 var lab = exports.lab = Lab.script();

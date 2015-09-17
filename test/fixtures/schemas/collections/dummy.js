@@ -1,3 +1,7 @@
+// Load modules
+
+var Control = require('../definitions/control.js').schema;
+
 module.exports = {
 
 
@@ -32,7 +36,7 @@ module.exports = {
                         type: ['string', 'object'],
                         maxLength: 50,
                         patternProperties: {
-                            '/(?=.*[a-zA-Z])/': {
+                            '/^[a-zA-Z]+$/': {
                                 type: 'string',
                                 maxLength: 50
                             }
@@ -101,7 +105,8 @@ module.exports = {
                 type: 'string',
                 maxLength: 50,
                 format: 'amt'
-            }
+            },
+            control: Control
         },
         required: ['dbRef']
     }

@@ -21,12 +21,10 @@ module.exports = {
         properties: {
 
             phone: {
-                type: 'string',
-                format: 'phone'
+                type: 'string'
             },
             postcode: {
-                type: 'string',
-                format: 'postcode'
+                type: 'string'
             }
 
         }

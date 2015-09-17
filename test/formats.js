@@ -2,9 +2,9 @@
 
 var Code = require('code');
 var Lab = require('lab');
-var OID = require('../lib/formats/oid.js');
-var Postcode = require('../lib/formats/postcode.js');
-var Phone = require('../lib/formats/telephone.js');
+var OID = require('./fixtures/formats/oid.js');
+var Postcode = require('./fixtures/formats/postcode.js');
+var Phone = require('./fixtures/formats/telephone.js');
 
 
 // Set-up lab
