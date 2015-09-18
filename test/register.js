@@ -38,21 +38,6 @@ describe('Register', function () {
 
     });
 
-    // it('should test registered phone format', function (done) {
-    //
-    //     var format = 'phone';
-    //     expect(Register[format]('01923670158')).to.be.true();
-    //     done();
-    //
-    // });
-    //
-    // it('should test register postcode format', function (done) {
-    //
-    //     var format = 'postcode';
-    //     expect(Register[format]('AL9 5JN')).to.be.true();
-    //     done();
-    //
-    // });
 
 
 });

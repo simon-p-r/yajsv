@@ -147,15 +147,6 @@ describe('Manager', function () {
         delete Schemas.county.schema.properties.control;
         manager.create(Schemas.county);
         manager.unRegisterFormats(['duration', 'dbRef', 'password', 'phone', 'postcode', 'vat', 'lookup', 'iban', 'contact', 'amt']);
-        // manager.unRegisterFormat();
-        // manager.unRegisterFormat();
-        // manager.unRegisterFormat('phone');
-        // manager.unRegisterFormat('postcode');
-        // manager.unRegisterFormat('vat');
-        // manager.unRegisterFormat('lookup');
-        // manager.unRegisterFormat('iban');
-        // manager.unRegisterFormat('contact');
-        // manager.unRegisterFormat('amt');
         manager.compile();
         done();
 
@@ -256,6 +247,7 @@ describe('Manager', function () {
                 manager.validateData(Json, schema, function (errA, validA) {
 
                     expect(errA).to.exists();
+                    expect(errA).to.be.an.instanceof(Error);
                     expect(validA).to.be.false();
 
                     Json.dbRef.q = {

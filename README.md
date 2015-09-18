@@ -9,9 +9,11 @@ var Manager = require('yajsv');  // Load module
 var schemas = require('/path/to/some/file'); // Load an array of schema objects
 var manager = new Manager({
     db: null,
-    zSchema: {}  // options for z-schema module
+    zSchema: {}  // optional options for z-schema module
+    registers: {} // optional object to register custom formats
 });  // create constructor
 manager.createMany(schemas);  // create schemas for validation
+manager.addFormats(formats); // add an object
 var results = manager.compile(); // validate schemas with z-schema
 
 ```
@@ -22,7 +24,10 @@ var results = manager.compile(); // validate schemas with z-schema
 
 creates the yajsv constructor object, valid options are
 + db - default vaue null, pass a mongodb native db object
-+ zSchema - pass options to z-schema constructor
++ zSchema - optionally pass options to z-schema constructor
++ registers - optionaly obejct with keys are name of formats to
+register and value is function with either one paramater for sync and two
+for async with a (value, callback) signature
 
 
 ##### manager.createMany(schemas);
@@ -50,10 +55,8 @@ method to validate each schema against some json data, callback with err, valid 
 ### Yajsv constructor
 
 yajsv constructor exposes the following properties
-+ schemaSet - an object with the following keys
++ schemaSet - an object with the following key
  * collections
- * definitions
- * records
 
 
 ### Todo
@@ -68,9 +71,9 @@ yajsv constructor exposes the following properties
 + ~~Improve errors from z-schema~~
 + ~~Extend both collection and definition type schemas - address format is one example where a definition needs to be extended~~
 + ~~Improve validateData method to return actual error objects, currently returns an array~~
-+ Remove register section to ship module with no in-built formats which limits dependencies on core schemas, move logic into separate module and just provide hooks here to load
++ ~~Remove register section to ship module with no in-built formats which limits dependencies on core schemas, move logic into separate module and just provide hooks here to load~~
 + Improve loading api of polymorphic schemas, remove current concepts to enable greater composition of simple objects
-+ Abstract away from z-schema in order to migrate to joi once custom formats are allowed with async operations 
++ Abstract away from z-schema in order to migrate to joi once custom formats are allowed with async operations
 + Document the redesigned schema objects, registering custom formats, etc
-+ 100% code coverage
 + Serialize function / methods into json string in order to persist in mongo
++ ~~100% code coverage~~
