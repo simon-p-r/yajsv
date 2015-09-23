@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "pretest": "mongo localhost:27017/schemas ./scripts/mongo.js",
-    "test": "lab -a code -v -t 99 -L -m 4000"
+    "test": "lab -a code -v -t 100 -L"
   },
   "keywords": [
     "json-schema",
@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "bson-objectid": "1.x.x",
-    "find-key": "1.x.x",
     "hoek": "2.x.x",
     "iban": "0.0.5",
     "neo-async": "1.x.x",

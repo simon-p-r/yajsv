@@ -16,6 +16,8 @@ module.exports = {
 
     schema: {
         id: 'county',
+        type: 'object',
+        additionalProperties: false,
         required: ['county', 'country'],
         properties: {
 

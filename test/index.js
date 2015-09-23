@@ -44,7 +44,7 @@ describe('Manager', function () {
     it('should expose crud methods', function (done) {
 
         var manager = new Manager({
-            registers: Register
+            formats: Register
         });
         var schemes = Object.keys(Schemas);
         schemes.forEach(function (scheme) {
@@ -57,15 +57,14 @@ describe('Manager', function () {
                 }).to.not.throw();
 
         });
-        var removed = manager.remove('dummy', 'collections');
+        manager.remove('dummy', 'collections');
         expect(manager.schemaSet.collections.device).to.not.exist();
-        expect(removed).to.be.true();
         var invalid = manager.remove('device', []);
-        expect(invalid).to.be.false();
+        expect(invalid).to.be.undefined();
         var moreInvalid = manager.remove({}, 'collections');
-        expect(moreInvalid).to.be.false();
+        expect(moreInvalid).to.be.undefined();
         manager.resetAll();
-        expect(manager.schemaSet.collections.control).to.not.exist();
+        expect(manager.schemaSet.control).to.not.exist();
         done();
 
     });
@@ -73,7 +72,7 @@ describe('Manager', function () {
     it('should add custom formats to core registered formats', function (done) {
 
         var manager = new Manager({
-            registers: Register
+            formats: Register
         });
         var schemes = Object.keys(Schemas);
         schemes.forEach(function (scheme) {
@@ -101,44 +100,6 @@ describe('Manager', function () {
     });
 
 
-    it('should create schema objects and pass zSchema validation', function (done) {
-
-        var manager = new Manager({
-            registers: Register
-        });
-        var schemes = Object.keys(Schemas);
-        schemes.forEach(function (scheme) {
-
-            var testSchema = Schemas[scheme];
-            expect(manager.create(testSchema)).to.be.an.object();
-
-        });
-        var result = manager.compile();
-        expect(result.valid).to.be.true();
-        expect(result.errors).to.be.null();
-        done();
-
-    });
-
-    it('should throw if formats have not been registered', function (done) {
-
-        var manager = new Manager({
-
-        });
-        var schemes = Object.keys(Schemas);
-        schemes.forEach(function (scheme) {
-
-            var testSchema = Schemas[scheme];
-            manager.create(testSchema);
-        });
-        expect(function () {
-
-            manager.compile();
-        }).throws();
-        done();
-
-    });
-
     it('should test if formats have been registered', function (done) {
 
         var manager = new Manager({
@@ -159,7 +120,7 @@ describe('Manager', function () {
             zSchema: {
                 strictMode: true
             },
-            registers: Register
+            formats: Register
         });
         manager.create(Invalid);
         var result = manager.compile();
@@ -174,7 +135,7 @@ describe('Manager', function () {
     it('should expose manager lookup methods', function (done) {
 
         var manager = new Manager({
-            registers: Register
+            formats: Register
         });
         var schemes = Object.keys(Schemas);
         schemes.forEach(function (scheme) {
@@ -201,7 +162,7 @@ describe('Manager', function () {
     it('should create an array of schema objects and pass zSchema validation', function (done) {
 
         var manager = new Manager({
-            registers: Register
+            formats: Register
         });
         var forValidation = [];
         var schemes = Object.keys(Schemas);
@@ -222,7 +183,7 @@ describe('Manager', function () {
     it('should test validateData async method with dummy schema designed to test all custom formats', function (done) {
 
         var manager = new Manager({
-            registers: Register
+            formats: Register
         });
         var schemes = Object.keys(Schemas);
         schemes.forEach(function (scheme) {
@@ -231,7 +192,7 @@ describe('Manager', function () {
             expect(manager.create(testSchema)).to.be.an.object();
 
         });
-        var schema = manager.schemaSet.collections.dummy.schema;
+        var schema = manager.schemaSet.dummy.schema;
         manager.compile();
         Mongodb.connect('mongodb://localhost:27017/schemas', { auto_reconnect: true }, function (err, db) {
 

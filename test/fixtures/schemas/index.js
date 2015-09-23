@@ -9,5 +9,4 @@ module.exports = {
     county: County,
     dummy: Dummy
 
-
 };

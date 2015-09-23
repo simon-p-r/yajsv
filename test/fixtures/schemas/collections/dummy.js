@@ -22,6 +22,9 @@ module.exports = {
     schema: {
 
         id: 'dummy',
+        title: this.type + ' schema for ' + this.name,
+        type: 'object',
+        additionalProperties: false,
         properties: {
 
             dbRef: {

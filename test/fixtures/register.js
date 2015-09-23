@@ -39,7 +39,7 @@ module.exports = {
         } else {
             query = obj.q;
         }
-        var valid = internals.findCollection(this.collections, obj.cn);
+        var valid = internals.findCollection(this.models, obj.cn);
         if (!valid) {
             return callback(false);
         }

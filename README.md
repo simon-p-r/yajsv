@@ -10,10 +10,10 @@ var schemas = require('/path/to/some/file'); // Load an array of schema objects
 var manager = new Manager({
     db: null,
     zSchema: {}  // optional options for z-schema module
-    registers: {} // optional object to register custom formats
+    formats: {} // optional object to register custom formats
 });  // create constructor
 manager.createMany(schemas);  // create schemas for validation
-manager.addFormats(formats); // add an object
+manager.addFormats(formats); // add a formats object
 var results = manager.compile(); // validate schemas with z-schema
 
 ```
@@ -24,8 +24,8 @@ var results = manager.compile(); // validate schemas with z-schema
 
 creates the yajsv constructor object, valid options are
 + db - default vaue null, pass a mongodb native db object
-+ zSchema - optionally pass options to z-schema constructor
-+ registers - optionaly obejct with keys are name of formats to
++ zSchema - optional param for z-schema constructor
++ formats - optional param is an object with keys are name of formats to
 register and value is function with either one paramater for sync and two
 for async with a (value, callback) signature
 
