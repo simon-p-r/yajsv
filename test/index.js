@@ -53,8 +53,8 @@ describe('Manager', function () {
             expect(manager.create(testSchema)).to.be.an.object();
             expect(function () {
 
-                    manager.create(testSchema);
-                }).to.not.throw();
+                manager.create(testSchema);
+            }).to.not.throw();
 
         });
         manager.remove('dummy', 'collections');
