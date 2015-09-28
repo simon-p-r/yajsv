@@ -1,16 +1,8 @@
 print('Dropping collections');
 
-var drop1 = db.lookup.drop();
+db.lookup.drop();
 
-if (!drop1) {
-    exit();
-};
-
-var drop2 = db.county.drop();
-
-if (!drop2) {
-    exit();
-};
+db.county.drop();
 
 print('Inserting data for tests');
 
