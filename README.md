@@ -6,7 +6,7 @@ Yet another json validator
 
 ```js
 var Manager = require('yajsv');  // Load module
-var schemas = require('/path/to/some/file'); // Load an array of schema objects or an object with valid keys being collections, definitions and records
+var schemas = require('/path/to/some/file'); // Load schemas either in an array or object sets
 var manager = new Manager({
     db: null,
     zSchema: {}  // optional options for z-schema module
