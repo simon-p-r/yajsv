@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.0.9 - more changes to api as still unstable and likely to change in near future.  Added different variants to schemas and ways to load schemas, setting object values is done first so that plugins can use methods to add schemas before they are validate with z-schema at end of process.  Improved tests to cover changes and change fixtures and added require-plus dependency.  Change readme to reflect changes
+
 v0.0.8 - removed register format throw and will fallback to z-schema error handling now, removed find-key dependency and internals.defaultFormats as not needed.  Changed return value to just return schemaSet and not schemaSet > collections to remove nested properties and changed name of array called collections into models.
 
 v0.0.7 - improved readme and added error object to be returned from validateData method

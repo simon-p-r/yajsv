@@ -1,6 +1,5 @@
 'use strict';
 
-var dbRef = require('./dbRef.js').schema;
 
 module.exports = {
 
@@ -14,7 +13,8 @@ module.exports = {
 
     schema: {
 
-        additionalProperties: false,
+        id: 'control',
+        additionalProperties: true,
         type: 'object',
         properties: {
 
@@ -23,7 +23,9 @@ module.exports = {
                 format: 'date-time',
                 maxLength: 50
             },
-            createdBy: dbRef,
+            createdBy: {
+                $ref: 'dbRef'
+            },
             id: {
                 type: 'string',
                 maxLength: 50
@@ -36,7 +38,9 @@ module.exports = {
                 maxLength: 50,
                 format: 'date-time'
             },
-            updatedBy: dbRef
+            updatedBy: {
+                $ref: 'dbRef'
+            }
         }
 
     }

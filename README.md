@@ -6,7 +6,7 @@ Yet another json validator
 
 ```js
 var Manager = require('yajsv');  // Load module
-var schemas = require('/path/to/some/file'); // Load an array of schema objects
+var schemas = require('/path/to/some/file'); // Load an array of schema objects or an object with valid keys being collections, definitions and records
 var manager = new Manager({
     db: null,
     zSchema: {}  // optional options for z-schema module
@@ -30,13 +30,9 @@ register and value is function with either one paramater for sync and two
 for async with a (value, callback) signature
 
 
-##### manager.createMany(schemas);
+##### manager.addSchemas(schemas);
 
-method to create schemas for validation, the schemas must be an array of valid schema objects
-
-##### manager.create(schema);
-
-method to create schema for validation, the schema is a valid schema object
+method to create schemas for validation, the schemas must be an array of valid schema objects or an object with keys being each type (collections, definitions, records) each with keys being the name of object and the value the respective schema  
 
 ##### manager.addFormats(formats);
 
@@ -55,8 +51,7 @@ method to validate each schema against some json data, callback with err, valid 
 ### Yajsv constructor
 
 yajsv constructor exposes the following properties
-+ schemaSet - an object with the following key
- * collections
++ schemas - an object with keys being all the schemas registered by addSchemas method
 
 
 ### Todo
@@ -72,8 +67,8 @@ yajsv constructor exposes the following properties
 + ~~Extend both collection and definition type schemas - address format is one example where a definition needs to be extended~~
 + ~~Improve validateData method to return actual error objects, currently returns an array~~
 + ~~Remove register section to ship module with no in-built formats which limits dependencies on core schemas, move logic into separate module and just provide hooks here to load~~
++ ~~100% code coverage~~
 + Improve loading api of polymorphic schemas, remove current concepts to enable greater composition of simple objects
 + Abstract away from z-schema in order to migrate to joi once custom formats are allowed with async operations
 + Document the redesigned schema objects, registering custom formats, etc
 + Serialize function / methods into json string in order to persist in mongo
-+ ~~100% code coverage~~

@@ -1,7 +1,5 @@
 'use strict';
 
-var Control = require('../definitions/control.js').schema;
-
 
 module.exports = {
 
@@ -28,8 +26,7 @@ module.exports = {
             country: {
                 type: 'string',
                 maxLength: 50
-            },
-            control: Control
+            }
 
         }
 

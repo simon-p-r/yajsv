@@ -1,7 +1,5 @@
 // Load modules
 
-var Control = require('../definitions/control.js').schema;
-
 module.exports = {
 
 
@@ -108,8 +106,7 @@ module.exports = {
                 type: 'string',
                 maxLength: 50,
                 format: 'amt'
-            },
-            control: Control
+            }
         },
         required: ['dbRef']
     }

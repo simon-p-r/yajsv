@@ -2,11 +2,14 @@
 
 var Code = require('code');
 var Lab = require('lab');
+var Hoek = require('hoek');
 var Mongodb = require('mongodb');
 var Manager = require('../lib');
-var Register = require('./fixtures/register.js');
-var Schemas = require('./fixtures/schemas/index.js');
-var Invalid = require('./fixtures/schemas/collections/invalid.js');
+var Plus = require('require-plus');
+
+var Formats = require('./fixtures/formats/register.js');
+var Schemas = require('./fixtures/index.js');
+var Invalid = require('./fixtures/invalid/invalid.js');
 var Json = require('./fixtures/data/dummy.json');
 
 
@@ -41,30 +44,37 @@ describe('Manager', function () {
 
     });
 
+    it('should throw an error when invalid parmater used for addSchemas method', function (done) {
+
+        var manager = new Manager({});
+        var original = Hoek.clone(Invalid);
+        expect(function () {
+
+            delete Invalid.metaSchema;
+            manager.addSchemas([Invalid]);
+
+        }).throws(Error);
+        Invalid = Hoek.clone(original);
+        done();
+
+    });
+
     it('should expose crud methods', function (done) {
 
         var manager = new Manager({
-            formats: Register
+            formats: Formats
         });
-        var schemes = Object.keys(Schemas);
-        schemes.forEach(function (scheme) {
-
-            var testSchema = Schemas[scheme];
-            expect(manager.create(testSchema)).to.be.an.object();
-            expect(function () {
-
-                manager.create(testSchema);
-            }).to.not.throw();
-
-        });
+        var moduleSet = new Plus({
+            directory: './fixtures/schemas'
+        }).moduleSet;
+        delete moduleSet.invalid;
+        manager.addSchemas(moduleSet);
         manager.remove('dummy', 'collections');
-        expect(manager.schemaSet.collections.device).to.not.exist();
         var invalid = manager.remove('device', []);
         expect(invalid).to.be.undefined();
         var moreInvalid = manager.remove({}, 'collections');
         expect(moreInvalid).to.be.undefined();
         manager.resetAll();
-        expect(manager.schemaSet.control).to.not.exist();
         done();
 
     });
@@ -72,15 +82,13 @@ describe('Manager', function () {
     it('should add custom formats to core registered formats', function (done) {
 
         var manager = new Manager({
-            formats: Register
+            formats: Formats
         });
-        var schemes = Object.keys(Schemas);
-        schemes.forEach(function (scheme) {
-
-            var testSchema = Schemas[scheme];
-            expect(manager.create(testSchema)).to.be.an.object();
-
-        });
+        var moduleSet = new Plus({
+            directory: './fixtures/schemas'
+        }).moduleSet;
+        delete moduleSet.invalid;
+        manager.addSchemas(moduleSet);
         var obj = {
 
             custom: function (str) {
@@ -92,21 +100,18 @@ describe('Manager', function () {
                 return true;
             }
         };
-        manager.registerFormats(obj);
-        var formats = manager.getRegisteredFormats();
-        expect(formats).to.be.an.array().and.include(['custom']);
+        manager.addFormats(obj);
+        expect(Object.keys(manager.formats)).to.be.an.array().and.include(['custom']);
         done();
 
     });
 
 
-    it('should test if formats have been registered', function (done) {
+    it('should test if formats can be unregistered', function (done) {
 
         var manager = new Manager({
-
+            formats: Formats
         });
-        delete Schemas.county.schema.properties.control;
-        manager.create(Schemas.county);
         manager.unRegisterFormats(['duration', 'dbRef', 'password', 'phone', 'postcode', 'vat', 'lookup', 'iban', 'contact', 'amt']);
         manager.compile();
         done();
@@ -120,9 +125,9 @@ describe('Manager', function () {
             zSchema: {
                 strictMode: true
             },
-            formats: Register
+            formats: Formats
         });
-        manager.create(Invalid);
+        manager.addSchemas([Invalid]);
         var result = manager.compile();
         expect(result.valid).to.be.false();
         expect(Object.keys(result.errors)).to.have.length(1);
@@ -135,15 +140,9 @@ describe('Manager', function () {
     it('should expose manager lookup methods', function (done) {
 
         var manager = new Manager({
-            formats: Register
+            formats: Formats
         });
-        var schemes = Object.keys(Schemas);
-        schemes.forEach(function (scheme) {
-
-            var testSchema = Schemas[scheme];
-            expect(manager.create(testSchema)).to.be.an.object();
-
-        });
+        manager.addSchemas(Schemas);
         manager.compile();
         var schema = manager.find('dummy');
         expect(schema).to.be.an.object().to.include('id', 'type', 'format');
@@ -151,28 +150,18 @@ describe('Manager', function () {
         expect(undef).to.be.undefined();
         var formats = manager.getFormats();
         expect(formats).to.be.an.array();
-        var collections = manager.getCollections();
         var schemas = manager.getSchemas();
-        expect(collections).to.be.an.array();
         expect(schemas).to.be.an.array();
         done();
 
     });
 
-    it('should create an array of schema objects and pass zSchema validation', function (done) {
+    it('should create schema objects and pass zSchema validation', function (done) {
 
         var manager = new Manager({
-            formats: Register
+            formats: Formats
         });
-        var forValidation = [];
-        var schemes = Object.keys(Schemas);
-        schemes.forEach(function (scheme) {
-
-            var testSchema = Schemas[scheme];
-            forValidation.push(testSchema);
-
-        });
-        manager.createMany(forValidation);
+        manager.addSchemas(Schemas);
         var result = manager.compile();
         expect(result.valid).to.be.true();
         expect(result.errors).to.be.null();
@@ -183,17 +172,11 @@ describe('Manager', function () {
     it('should test validateData async method with dummy schema designed to test all custom formats', function (done) {
 
         var manager = new Manager({
-            formats: Register
+            formats: Formats
         });
-        var schemes = Object.keys(Schemas);
-        schemes.forEach(function (scheme) {
-
-            var testSchema = Schemas[scheme];
-            expect(manager.create(testSchema)).to.be.an.object();
-
-        });
-        var schema = manager.schemaSet.dummy.schema;
+        manager.addSchemas(Schemas);
         manager.compile();
+        var schema = manager.find('dummy');
         Mongodb.connect('mongodb://localhost:27017/schemas', { auto_reconnect: true }, function (err, db) {
 
             manager.db = db;
@@ -208,7 +191,6 @@ describe('Manager', function () {
                 manager.validateData(Json, schema, function (errA, validA) {
 
                     expect(errA).to.exists();
-                    expect(errA).to.be.an.instanceof(Error);
                     expect(validA).to.be.false();
 
                     Json.dbRef.q = {

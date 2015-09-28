@@ -1,9 +1,9 @@
 // Load modules
 var Async = require('neo-async');
 var Iban = require('iban');
-var Telephone = require('./formats/telephone.js');
-var Postcode = require('./formats/postcode.js');
-var Oid = require('./formats/oid.js');
+var Telephone = require('./telephone.js');
+var Postcode = require('./postcode.js');
+var Oid = require('./oid.js');
 var ObjectID = require('bson-objectid');
 
 var internals = {};
@@ -13,7 +13,7 @@ internals.findCollection = function (arr, coll) {
     var collections = [];
     arr.map(function (collection) {
 
-        collections.push(collection.name);
+        collections.push(collection.collectionName);
     });
     if (collections.indexOf(coll) !== -1) {
         return true;

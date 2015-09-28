@@ -11,7 +11,7 @@ module.exports = {
     },
 
     schema: {
-
+        id: 'dbRef',
         format: 'dbRef',
         type: 'object',
         additionalProperties: false,
