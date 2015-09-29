@@ -9,8 +9,9 @@ var Plus = require('require-plus');
 
 var Formats = require('./fixtures/formats/register.js');
 var Schemas = require('./fixtures/index.js');
-var Invalid = require('./fixtures/invalid/invalid.js');
+var Invalid = require('./fixtures/schemas/invalid/invalid.js');
 var Json = require('./fixtures/data/dummy.json');
+var Duplicates = require('./fixtures/schemas/invalid/duplicates.js');
 
 
 // Set-up lab
@@ -44,6 +45,18 @@ describe('Manager', function () {
 
     });
 
+    it('should throw an error when registering a schema already within schema namespace', function (done) {
+
+        var manager = new Manager({});
+        expect(function () {
+
+            manager.addSchemas(Duplicates);
+
+        }).throws(Error);
+        done();
+
+    });
+
     it('should throw an error when invalid parmater used for addSchemas method', function (done) {
 
         var manager = new Manager({});
@@ -55,6 +68,52 @@ describe('Manager', function () {
 
         }).throws(Error);
         Invalid = Hoek.clone(original);
+        done();
+
+    });
+
+    it('should throw an error when adding a format namespace twice', function (done) {
+
+        var func = {
+            custom: function (str) {
+
+                return true;
+            }
+        };
+        var manager = new Manager({
+            formats: func
+        });
+        expect(function () {
+
+            manager.addFormats(func);
+
+        }).throws(Error);
+        done();
+
+    });
+
+    it('should throw an error when adding an invalid parameter to addSchema method', function (done) {
+
+        var manager = new Manager({
+
+        });
+        expect(function () {
+
+            manager.addSchema([]);
+
+        }).throws(Error);
+
+        expect(function () {
+
+            manager.addSchema({
+                metaSchema: {
+                    type: 'collection',
+                    name: 'hello'
+
+                }
+            });
+
+        }).throws(Error);
         done();
 
     });
