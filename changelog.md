@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.1.3 - tidied up compile method with checking to see if formats have been loaded before registering with z-schema
+
 v0.1.2 - improved error handling for duplicate schema and format names, also improved validation of addSchemas method and introduced addSchema method for loading one valid schema
 
 v0.1.1 - bumped version due to test issues with travis

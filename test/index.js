@@ -47,7 +47,9 @@ describe('Manager', function () {
 
     it('should throw an error when registering a schema already within schema namespace', function (done) {
 
-        var manager = new Manager({});
+        var manager = new Manager({
+            formats: Formats
+        });
         expect(function () {
 
             manager.addSchemas(Duplicates);
@@ -59,7 +61,9 @@ describe('Manager', function () {
 
     it('should throw an error when invalid parmater used for addSchemas method', function (done) {
 
-        var manager = new Manager({});
+        var manager = new Manager({
+            formats: Formats
+        });
         var original = Hoek.clone(Invalid);
         expect(function () {
 
@@ -95,7 +99,7 @@ describe('Manager', function () {
     it('should throw an error when adding an invalid parameter to addSchema method', function (done) {
 
         var manager = new Manager({
-
+            formats: Formats
         });
         expect(function () {
 
@@ -198,9 +202,7 @@ describe('Manager', function () {
 
     it('should expose manager lookup methods', function (done) {
 
-        var manager = new Manager({
-            formats: Formats
-        });
+        var manager = new Manager({});
         manager.addSchemas(Schemas);
         manager.compile();
         var schema = manager.find('dummy');
