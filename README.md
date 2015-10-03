@@ -12,7 +12,7 @@ var manager = new Manager({
     zSchema: {}  // optional options for z-schema module
     formats: {} // optional object to register custom formats
 });  // create constructor
-manager.createMany(schemas);  // create schemas for validation
+manager.addSchemas(schemas);  // create schemas for validation
 manager.addFormats(formats); // add a formats object
 var results = manager.compile(); // validate schemas with z-schema
 
