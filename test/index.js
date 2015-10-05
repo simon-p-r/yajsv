@@ -7,8 +7,9 @@ var Mongodb = require('mongodb');
 var Manager = require('../lib');
 var Plus = require('require-plus');
 
-var Formats = require('./fixtures/formats/register.js');
-var Schemas = require('./fixtures/index.js');
+var CFormats = require('./fixtures/formats/formats.js');
+var Formats = require('./fixtures/formats/index.js');
+var Schemas = require('./fixtures/schemas/index.js');
 var Invalid = require('./fixtures/schemas/invalid/invalid.js');
 var Json = require('./fixtures/data/dummy.json');
 var Duplicates = require('./fixtures/schemas/invalid/duplicates.js');
@@ -128,7 +129,7 @@ describe('Manager', function () {
             formats: Formats
         });
         var moduleSet = new Plus({
-            directory: './fixtures/schemas'
+            directory: './fixtures/schemas/schemata'
         }).moduleSet;
         delete moduleSet.invalid;
         manager.addSchemas(moduleSet);
@@ -148,7 +149,7 @@ describe('Manager', function () {
             formats: Formats
         });
         var moduleSet = new Plus({
-            directory: './fixtures/schemas'
+            directory: './fixtures/schemas/schemata'
         }).moduleSet;
         delete moduleSet.invalid;
         manager.addSchemas(moduleSet);
@@ -164,6 +165,8 @@ describe('Manager', function () {
             }
         };
         manager.addFormats(obj);
+        manager.addFormats(CFormats);
+        manager.compile();
         expect(Object.keys(manager.formats)).to.be.an.array().and.include(['custom']);
         done();
 
@@ -176,7 +179,6 @@ describe('Manager', function () {
             formats: Formats
         });
         manager.unRegisterFormats(['duration', 'dbRef', 'password', 'phone', 'postcode', 'vat', 'lookup', 'iban', 'contact', 'amt']);
-        manager.compile();
         done();
 
     });
@@ -198,8 +200,6 @@ describe('Manager', function () {
 
     });
 
-
-
     it('should expose manager lookup methods', function (done) {
 
         var manager = new Manager({});
@@ -213,92 +213,10 @@ describe('Manager', function () {
         expect(formats).to.be.an.array();
         var schemas = manager.getSchemas();
         expect(schemas).to.be.an.array();
+        var validator = manager.getValidator();
+        expect(validator).to.be.an.object();
         done();
 
     });
-
-    it('should create schema objects and pass zSchema validation', function (done) {
-
-        var manager = new Manager({
-            formats: Formats
-        });
-        manager.addSchemas(Schemas);
-        var result = manager.compile();
-        expect(result.valid).to.be.true();
-        expect(result.errors).to.be.null();
-        done();
-
-    });
-
-    it('should test validateData async method with dummy schema designed to test all custom formats', function (done) {
-
-        var manager = new Manager({
-            formats: Formats
-        });
-        manager.addSchemas(Schemas);
-        manager.compile();
-        var schema = manager.find('dummy');
-        Mongodb.connect('mongodb://localhost:27017/schemas', { auto_reconnect: true }, function (err, db) {
-
-            manager.db = db;
-
-            manager.validateData(Json, schema, function (err, valid) {
-
-                expect(err).to.not.exist();
-                expect(valid).to.be.true();
-
-                Json.dbRef.q = 'Bedfordshire';
-
-                manager.validateData(Json, schema, function (errA, validA) {
-
-                    expect(errA).to.exists();
-                    expect(validA).to.be.false();
-
-                    Json.dbRef.q = {
-                        county: 'Bedfordshire'
-                    };
-
-                    manager.validateData(Json, schema, function (errB, validB) {
-
-                        expect(errB).to.not.exist();
-                        expect(validB).to.be.true();
-
-                        Json.dbRef.cn = 'invalid';
-
-                        manager.validateData(Json, schema, function (errC, validC) {
-
-                            expect(errC).to.exists();
-                            expect(validC).to.be.false();
-
-                            Json.dbRef.cn = 'county';
-                            Json.luRef.lv = null;
-                            delete Json.luRef.lv;
-                            Json.luRef.lv = 'iban';
-
-                            manager.validateData(Json, schema, function (errD, validD) {
-
-                                expect(errD).to.not.exist();
-                                expect(validD).to.be.true();
-
-                                Json.luRef.lv = null;
-                                delete Json.luRef.lv;
-                                Json.luRef.lv = 'oooppps';
-
-                                manager.validateData(Json, schema, function (errE, validE) {
-
-                                    expect(errE).to.exists();
-                                    expect(validE).to.be.false();
-                                    db.close();
-                                    done();
-
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
-    });
-
 
 });

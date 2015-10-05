@@ -4,9 +4,9 @@ node_js:
   - 0.10
   - 0.12
   - 4.0
-  
+  - 4.1
+
 sudo: false
-services: mongodb
 
 before_script:
   - sleep 15

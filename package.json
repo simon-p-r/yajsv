@@ -1,10 +1,9 @@
 {
   "name": "yajsv",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "yet another json schema validator",
   "main": "lib/index.js",
   "scripts": {
-    "pretest": "mongo localhost:27017/schemas ./scripts/mongo.js",
     "test": "lab -a code -v -t 100 -L"
   },
   "keywords": [
@@ -21,7 +20,6 @@
     "code": "1.x.x",
     "joi": "6.x.x",
     "lab": "5.x.x",
-    "mongodb": "2.x.x",
     "require-plus": "1.x.x"
   },
   "dependencies": {

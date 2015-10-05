@@ -44,9 +44,9 @@ method to verify all schema that have been created are valid, returns an object 
 +  valid - a boolean
 +  errors - an object with each key being the name of schema which failed validation and an error message to explain
 
-##### manager.validateData(JSON, schema, callback);
+##### manager.getValidator();
 
-method to validate each schema against some json data, callback with err, valid signature maybe optional in the future
+method to get handle to z-schema validator object to be used to validate data against schemas created by this module
 
 ### Yajsv constructor
 
