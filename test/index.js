@@ -3,7 +3,6 @@
 var Code = require('code');
 var Lab = require('lab');
 var Hoek = require('hoek');
-var Mongodb = require('mongodb');
 var Manager = require('../lib');
 var Plus = require('require-plus');
 
