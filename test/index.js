@@ -122,7 +122,7 @@ describe('Manager', function () {
 
     });
 
-    it('should expose crud methods', function (done) {
+    it('should load an object set of schemas', function (done) {
 
         var manager = new Manager({
             formats: Formats
@@ -130,28 +130,16 @@ describe('Manager', function () {
         var moduleSet = new Plus({
             directory: './fixtures/schemas/schemata'
         }).moduleSet;
-        delete moduleSet.invalid;
         manager.addSchemas(moduleSet);
-        manager.remove('dummy', 'collections');
-        var invalid = manager.remove('device', []);
-        expect(invalid).to.be.undefined();
-        var moreInvalid = manager.remove({}, 'collections');
-        expect(moreInvalid).to.be.undefined();
-        manager.resetAll();
         done();
 
     });
 
-    it('should add custom formats to core registered formats', function (done) {
+    it('should test if formats can be registered and unregistered', function (done) {
 
         var manager = new Manager({
             formats: Formats
         });
-        var moduleSet = new Plus({
-            directory: './fixtures/schemas/schemata'
-        }).moduleSet;
-        delete moduleSet.invalid;
-        manager.addSchemas(moduleSet);
         var obj = {
 
             custom: function (str) {
@@ -166,17 +154,6 @@ describe('Manager', function () {
         manager.addFormats(obj);
         manager.addFormats(CFormats);
         manager.compile();
-        expect(Object.keys(manager.formats)).to.be.an.array().and.include(['custom']);
-        done();
-
-    });
-
-
-    it('should test if formats can be unregistered', function (done) {
-
-        var manager = new Manager({
-            formats: Formats
-        });
         manager.unRegisterFormats(['duration', 'dbRef', 'password', 'phone', 'postcode', 'vat', 'lookup', 'iban', 'contact', 'amt']);
         done();
 
@@ -195,6 +172,19 @@ describe('Manager', function () {
         var result = manager.compile();
         expect(result.valid).to.be.false();
         expect(Object.keys(result.errors)).to.have.length(1);
+        done();
+
+    });
+
+
+    it('should pass z-schema validation', function (done) {
+
+        var manager = new Manager({
+            formats: CFormats
+        });
+        manager.addSchemas(Schemas);
+        var result = manager.compile();
+        expect(result.valid).to.be.true();
         done();
 
     });

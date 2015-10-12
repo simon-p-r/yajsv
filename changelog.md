@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.1.6 - removed crud methods, cleaned up and updated docs
+
 v0.1.5 - removed data validation logic and related tests, enable db to be passed as part of options to constructor.  Removed dependency on mongodb
 
 v0.1.4 - exposed hidden schemas cache as hidden from consumer of module
