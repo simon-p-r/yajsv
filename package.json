@@ -30,7 +30,8 @@
     "basic-utils": "0.0.1",
     "bossy": "^2.0.0",
     "deepmerge": "^0.2.10",
-    "hoek": "2.x.x"
+    "hoek": "2.x.x",
+    "z-schema": "^3.15.3"
   },
   "bin": {
     "yajsv": "./bin/yajsv"

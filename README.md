@@ -2,7 +2,7 @@
 
 Yet another json validator
 
-Unstable changing api, originally a validation library hence the nambut now a module that pre-processes schemas into json-schemas.  Module now only with node version 4 or greater due to use of ES6 features.  This module constructs an abstraction from json-schema to allow for more composable schemas from smaller subschemas.
+Unstable changing api, originally a validation library hence the name but now a module that pre-processes schemas into json-schemas.  Module now only with node version 4 or greater due to use of ES6 features.  This module constructs an abstraction from json-schema to allow for more composable schemas from smaller subschemas.
 
 ### Example usage
 
@@ -35,6 +35,10 @@ method to create schemas for validation, the schemas must be an array of valid s
 ##### manager.addFormats(formats);
 
 method to add custom formats to z-schema, the formats argument is an object with keys the name of the format and the value is the function to register.  See lib/register for formats that are already registered
+
+##### manager.toJson(match);
+
+method to return either an object with the keys being the names of all schemas with values being json strings called by passing '*' to method or by passing a name of schema to return as json the schema name must be passed to method to return the strignified schema
 
 ##### manager.compile();
 
