@@ -4,3 +4,5 @@ coverage.html
 node_modules
 !test.js
 test.js
+output
+data

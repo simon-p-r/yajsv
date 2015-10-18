@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.2.0 - major changes to api however still not at version 1 due to changing scope of module
+
 v0.1.6 - removed crud methods, cleaned up and updated docs
 
 v0.1.5 - removed data validation logic and related tests, enable db to be passed as part of options to constructor.  Removed dependency on mongodb

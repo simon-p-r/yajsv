@@ -1,7 +1,14 @@
+'use strict';
+
 module.exports = {
 
-    format: function (str) {
+    contact: function (str) {
+
+        return true;
+    },
+    amt: function (str) {
 
         return true;
     }
+
 };

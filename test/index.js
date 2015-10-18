@@ -1,18 +1,13 @@
-// Load modules
+'use strict';
 
 var Code = require('code');
 var Lab = require('lab');
-var Hoek = require('hoek');
-var Manager = require('../lib');
+var Manager = require('../lib/index.js');
 var Plus = require('require-plus');
-
-var CFormats = require('./fixtures/formats/formats.js');
+var Schemata = new Plus({
+    directory: './fixtures/schemata'
+}).moduleSet;
 var Formats = require('./fixtures/formats/index.js');
-var Schemas = require('./fixtures/schemas/index.js');
-var Invalid = require('./fixtures/schemas/invalid/invalid.js');
-var Json = require('./fixtures/data/dummy.json');
-var Duplicates = require('./fixtures/schemas/invalid/duplicates.js');
-
 
 // Set-up lab
 var lab = exports.lab = Lab.script();
@@ -26,10 +21,10 @@ describe('Manager', function () {
 
         var fn = function () {
 
-            var manager = Manager();
+            Manager();
         };
 
-        expect(fn).throws(Error, 'Manager must be created using new');
+        expect(fn).throws(Error);
         done();
 
     });
@@ -38,85 +33,22 @@ describe('Manager', function () {
 
         var fn = function () {
 
-            var manager = new Manager();
+            new Manager();
         };
         expect(fn).throws(Error, 'Manager must be constructed with a valid options object');
         done();
 
     });
 
-    it('should throw an error when registering a schema already within schema namespace', function (done) {
+    it('should throw when addSchemas', function (done) {
 
         var manager = new Manager({
             formats: Formats
         });
-        expect(function () {
-
-            manager.addSchemas(Duplicates);
-
-        }).throws(Error);
-        done();
-
-    });
-
-    it('should throw an error when invalid parmater used for addSchemas method', function (done) {
-
-        var manager = new Manager({
-            formats: Formats
-        });
-        var original = Hoek.clone(Invalid);
-        expect(function () {
-
-            delete Invalid.metaSchema;
-            manager.addSchemas([Invalid]);
-
-        }).throws(Error);
-        Invalid = Hoek.clone(original);
-        done();
-
-    });
-
-    it('should throw an error when adding a format namespace twice', function (done) {
-
-        var func = {
-            custom: function (str) {
-
-                return true;
-            }
-        };
-        var manager = new Manager({
-            formats: func
-        });
-        expect(function () {
-
-            manager.addFormats(func);
-
-        }).throws(Error);
-        done();
-
-    });
-
-    it('should throw an error when adding an invalid parameter to addSchema method', function (done) {
-
-        var manager = new Manager({
-            formats: Formats
-        });
-        expect(function () {
-
-            manager.addSchema([]);
-
-        }).throws(Error);
 
         expect(function () {
 
-            manager.addSchema({
-                metaSchema: {
-                    type: 'collection',
-                    name: 'hello'
-
-                }
-            });
-
+            manager.addSchemas('invalid parameter');
         }).throws(Error);
         done();
 
@@ -127,85 +59,89 @@ describe('Manager', function () {
         var manager = new Manager({
             formats: Formats
         });
-        var moduleSet = new Plus({
-            directory: './fixtures/schemas/schemata'
-        }).moduleSet;
-        manager.addSchemas(moduleSet);
+        manager.addSchemas(Schemata);
+        var compiled = manager.compile();
+        expect(compiled).to.be.an.object();
         done();
 
     });
 
-    it('should test if formats can be registered and unregistered', function (done) {
+    it('should load an array of schemas', function (done) {
 
         var manager = new Manager({
             formats: Formats
         });
-        var obj = {
+        var Schemas = [];
+        Object.keys(Schemata).forEach(function (type) {
 
+            Object.keys(Schemata[type]).forEach(function (name) {
+
+                Schemas.push(Schemata[type][name]);
+            });
+
+        });
+        manager.addSchemas(Schemas);
+        var compiled = manager.compile();
+        expect(compiled).to.be.an.object();
+        done();
+
+    });
+
+    it('should load custom formats', function (done) {
+
+        var manager = new Manager({
+            formats: Formats
+        });
+        manager.addSchemas(Schemata);
+        manager.addFormats({
             custom: function (str) {
 
                 return true;
-            },
-            anotherCustom: function (str) {
+            }
+        });
+        var compiled = manager.compile();
+        expect(compiled).to.be.an.object();
+        done();
+    });
+
+    it('should throw if same custom format is registered twice', function (done) {
+
+        var manager = new Manager({
+            formats: Formats
+        });
+        manager.addSchemas(Schemata);
+        manager.addFormats({
+            custom: function (str) {
 
                 return true;
             }
-        };
-        manager.addFormats(obj);
-        manager.addFormats(CFormats);
-        manager.compile();
-        manager.unRegisterFormats(['duration', 'dbRef', 'password', 'phone', 'postcode', 'vat', 'lookup', 'iban', 'contact', 'amt']);
-        done();
+        });
+        expect(function () {
 
+            manager.addFormats({
+                custom: function (str) {
+
+                    return true;
+                }
+            });
+        }).throws(Error);
+        done();
     });
 
-
-    it('should create error objects for failed z-schema validation', function (done) {
+    it('should expose a toJson method and returns stringified schemas', function (done) {
 
         var manager = new Manager({
-            zSchema: {
-                strictMode: true
-            },
             formats: Formats
         });
-        manager.addSchemas([Invalid]);
-        var result = manager.compile();
-        expect(result.valid).to.be.false();
-        expect(Object.keys(result.errors)).to.have.length(1);
+        manager.addSchemas(Schemata);
+        var json = manager.toJson('*');
+        expect(json.rec).to.be.a.string();
+        var rec = manager.toJson('rec');
+        expect(rec).to.be.a.string();
+        var person = manager.toJson('person');
+        expect(person).to.be.undefined();
         done();
-
     });
 
-
-    it('should pass z-schema validation', function (done) {
-
-        var manager = new Manager({
-            formats: CFormats
-        });
-        manager.addSchemas(Schemas);
-        var result = manager.compile();
-        expect(result.valid).to.be.true();
-        done();
-
-    });
-
-    it('should expose manager lookup methods', function (done) {
-
-        var manager = new Manager({});
-        manager.addSchemas(Schemas);
-        manager.compile();
-        var schema = manager.find('dummy');
-        expect(schema).to.be.an.object().to.include('id', 'type', 'format');
-        var undef = manager.find({});
-        expect(undef).to.be.undefined();
-        var formats = manager.getFormats();
-        expect(formats).to.be.an.array();
-        var schemas = manager.getSchemas();
-        expect(schemas).to.be.an.array();
-        var validator = manager.getValidator();
-        expect(validator).to.be.an.object();
-        done();
-
-    });
 
 });
