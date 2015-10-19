@@ -2,7 +2,7 @@
 
 Yet another json validator
 
-Unstable changing api, originally a validation library hence the name but now a module that pre-processes schemas into json-schemas.  Module now only with node version 4 or greater due to use of ES6 features.  This module constructs an abstraction from json-schema to allow for more composable schemas from smaller subschemas.
+Unstable changing api, originally a validation library hence the name but now a module that pre-processes schemas into json-schemas.  Module now only works with node version 4 or greater due to use of ES6 features.  This module constructs an abstraction from json-schema to allow for more composable schemas from smaller subschemas.
 
 ### Example usage
 
@@ -46,11 +46,39 @@ method to verify all schema that have been created are valid, returns an object 
 +  schemas - an object with each key being the name of created schema
 +  formats - an object with each key being the name of format and the value being the required function to be registered with z-schema
 
+### cli
 
-### Yajsv constructor
+installation
+````js
+npm i -g yajsv
+````
 
-yajsv constructor exposes the following properties
-+ formats - an object of formats registered
+usage
+
+````js
+yajsv -i path/to/input -o path/to/output -f path/to/formats/file -s testSchema
+````
+
+##### Input -i
+Directory containing folder names collections, records and definitions.  They must containing relevant schema files in the respective directories
+
+##### Output -o
+Output directory where json-schemas will be saved to
+
+##### Formats -f
+Formats option is path to a valid formats file
+
+##### Schema -s
+Schema is either a name of the schema you want to save to file or default is a * which means all schemas in directory will be saved
+
+##### Version -v
+Prints version of yajsv
+
+##### Help -h
+Prints usage of cli
+
+
+
 
 
 ### Todo
@@ -58,3 +86,4 @@ yajsv constructor exposes the following properties
 + Abstracted away from a specific validation library
 + Document the required schema objects to parse and build json-schema complaint schemas
 + Improve documentation especially of yajsv cli interface
++ Remove custom formats interface?

@@ -7,7 +7,7 @@ var Plus = require('require-plus');
 var Schemata = new Plus({
     directory: './fixtures/schemata'
 }).moduleSet;
-var Formats = require('./fixtures/formats/index.js');
+var Formats = require('./fixtures/formats.js');
 
 // Set-up lab
 var lab = exports.lab = Lab.script();

@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.2.1 - improved cli interface by removing some defauly parameters and improved docs to explain usage and installation
+
 v0.2.0 - major changes to api however still not at version 1 due to changing scope of module
 
 v0.1.6 - removed crud methods, cleaned up and updated docs
