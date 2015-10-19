@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.2.3 - moved require-plkus to dep like joi on last version
+
 v0.2.2 - fixed missing dep joi from cli interface, it was a dev dep instead of true dep
 
 v0.2.1 - improved cli interface by removing some defauly parameters and improved docs to explain usage and installation
