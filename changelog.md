@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.2.6 - return definitions for reference encase record is polymorphic
+
 v0.2.5 - fixed bug with files not been written out from cli
 
 v0.2.4 - fixed bug with extending collection schema into record schema, if record schema has no base it now is the record schema.  This will allow for non-polymorphic schemas to be created
