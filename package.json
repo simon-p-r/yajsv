@@ -1,6 +1,6 @@
 {
   "name": "yajsv",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "yet another json schema validator",
   "main": "lib/index.js",
   "scripts": {
@@ -21,7 +21,6 @@
   "license": "BSD-3-Clause",
   "devDependencies": {
     "code": "1.x.x",
-    "joi": "6.x.x",
     "lab": "^6.2.0",
     "require-plus": "1.x.x",
     "rimraf": "^2.4.3"
@@ -31,6 +30,7 @@
     "bossy": "^2.0.0",
     "deepmerge": "^0.2.10",
     "hoek": "2.x.x",
+    "joi": "6.x.x",
     "z-schema": "^3.15.3"
   },
   "bin": {
