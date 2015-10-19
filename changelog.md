@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.2.4 - fixed bug with extending collection schema into record schema, if record schema has no base it now is the record schema.  This will allow for non-polymorphic schemas to be created
+
 v0.2.3 - moved require-plkus to dep like joi on last version
 
 v0.2.2 - fixed missing dep joi from cli interface, it was a dev dep instead of true dep

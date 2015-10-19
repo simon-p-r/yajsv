@@ -1,6 +1,7 @@
 'use strict';
 
 var Code = require('code');
+var Hoek = require('hoek');
 var Lab = require('lab');
 var Manager = require('../lib/index.js');
 var Plus = require('require-plus');
@@ -40,7 +41,7 @@ describe('Manager', function () {
 
     });
 
-    it('should throw when addSchemas', function (done) {
+    it('should throw when passing an invalid parameter to addSchemas method', function (done) {
 
         var manager = new Manager({
             formats: Formats
@@ -50,6 +51,20 @@ describe('Manager', function () {
 
             manager.addSchemas('invalid parameter');
         }).throws(Error);
+        done();
+
+    });
+
+    it('should throw when passing an invalid schemaSet to addSchemas method', function (done) {
+
+        var manager = new Manager({
+            formats: Formats
+        });
+        var copy = Hoek.clone(Schemata);
+        delete copy.records.rec.metaSchema.base;
+        manager.addSchemas(copy);
+        var compiled = manager.compile();
+        expect(compiled.schemas.rec.schema.properties.id).to.not.exist();
         done();
 
     });

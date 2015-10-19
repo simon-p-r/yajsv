@@ -6,7 +6,7 @@ module.exports = {
         description: 'Example base schema',
         type: 'collection',
         jsonSchema: 'v4',
-        name: 'entity',
+        name: 'example',
         version: 1,
         keys: [{
             name: 'sid',
