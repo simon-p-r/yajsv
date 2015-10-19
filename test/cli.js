@@ -2,10 +2,8 @@
 
 var ChildProcess = require('child_process');
 var Code = require('code');
-// var Fs = require('fs');
 var Lab = require('lab');
 var Path = require('path');
-// var Pkg = require('../package.json');
 var Rmdir = require('rimraf');
 
 // Declare internals
@@ -23,6 +21,7 @@ describe('Cli', function () {
 
     var yajsvPath = Path.join(__dirname, '..', 'bin', 'yajsv');
     var outDir = Path.join(__dirname, '..', 'output');
+    var inputDir = './test/fixtures/schemata';
 
     lab.before(function (done) {
 
@@ -32,7 +31,7 @@ describe('Cli', function () {
 
     it('runs command to validate and persist all schemas to disk', function (done) {
 
-        var cli = ChildProcess.spawn('node', [yajsvPath]);
+        var cli = ChildProcess.spawn('node', [yajsvPath, '-i', inputDir]);
         var output = '';
 
         cli.stdout.on('data', function (data) {
