@@ -63,8 +63,8 @@ describe('Manager', function () {
         var copy = Hoek.clone(Schemata);
         delete copy.records.rec.metaSchema.base;
         manager.addSchemas(copy);
-        var compiled = manager.compile();
-        expect(compiled.schemas.rec.schema.properties.id).to.not.exist();
+        manager.compile();
+        expect(manager.records.rec.schema.properties.id).to.not.exist();
         done();
 
     });
@@ -75,8 +75,8 @@ describe('Manager', function () {
             formats: Formats
         });
         manager.addSchemas(Schemata);
-        var compiled = manager.compile();
-        expect(compiled).to.be.an.object();
+        manager.compile();
+        expect(manager.records).to.be.an.object();
         done();
 
     });
@@ -96,8 +96,8 @@ describe('Manager', function () {
 
         });
         manager.addSchemas(Schemas);
-        var compiled = manager.compile();
-        expect(compiled).to.be.an.object();
+        manager.compile();
+        expect(manager.definitions).to.be.an.object();
         done();
 
     });
@@ -114,8 +114,8 @@ describe('Manager', function () {
                 return true;
             }
         });
-        var compiled = manager.compile();
-        expect(compiled).to.be.an.object();
+        manager.compile();
+        expect(Object.keys(manager.formats)).to.include(['custom']);
         done();
     });
 

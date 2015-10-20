@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.3.0 - compile method no longer returns values (it says values of constructor to have props formats, records, definitions and collections).  Removed unneeded variables and cleaned up tests 
+
 v0.2.6 - return definitions for reference encase record is polymorphic
 
 v0.2.5 - fixed bug with files not been written out from cli
