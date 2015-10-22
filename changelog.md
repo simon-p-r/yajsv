@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.3.2 - as per documents made formats an optional option to pass to constructor
+
 v0.3.1 - added joi validation to incoming options object, updated z-schema version and removed unneeded internals objects.
 
 v0.3.0 - compile method no longer returns values (it says values of constructor to have props formats, records, definitions and collections).  Removed unneeded variables and cleaned up tests

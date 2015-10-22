@@ -30,17 +30,6 @@ describe('Manager', function () {
 
     });
 
-    it('should throw an error constructed without a valid options object', function (done) {
-
-        var fn = function () {
-
-            new Manager();
-        };
-        expect(fn).throws(Error, 'Manager must be constructed with a valid options object');
-        done();
-
-    });
-
     it('should throw when passing an invalid parameter to addSchemas method', function (done) {
 
         var manager = new Manager({
@@ -83,9 +72,7 @@ describe('Manager', function () {
 
     it('should load an array of schemas', function (done) {
 
-        var manager = new Manager({
-            formats: Formats
-        });
+        var manager = new Manager();
         var Schemas = [];
         Object.keys(Schemata).forEach(function (type) {
 
