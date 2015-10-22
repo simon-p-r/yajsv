@@ -1,6 +1,8 @@
 ### Changelog
 
-v0.3.0 - compile method no longer returns values (it says values of constructor to have props formats, records, definitions and collections).  Removed unneeded variables and cleaned up tests 
+v0.3.1 - added joi validation to incoming options object, updated z-schema version and removed unneeded internals objects.
+
+v0.3.0 - compile method no longer returns values (it says values of constructor to have props formats, records, definitions and collections).  Removed unneeded variables and cleaned up tests
 
 v0.2.6 - return definitions for reference encase record is polymorphic
 
