@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.3.3 - fixed test that was missing catching base property on record type schemas, changed joi validation of incoming schemas
+
 v0.3.2 - as per documents made formats an optional option to pass to constructor
 
 v0.3.1 - added joi validation to incoming options object, updated z-schema version and removed unneeded internals objects.

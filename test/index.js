@@ -51,9 +51,10 @@ describe('Manager', function () {
         });
         var copy = Hoek.clone(Schemata);
         delete copy.records.rec.metaSchema.base;
-        manager.addSchemas(copy);
-        manager.compile();
-        expect(manager.records.rec.schema.properties.id).to.not.exist();
+        expect(function () {
+
+            manager.addSchemas(copy);
+        }).throws(Error);
         done();
 
     });
