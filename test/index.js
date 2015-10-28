@@ -146,5 +146,17 @@ describe('Manager', function () {
         done();
     });
 
+    it('should generate schema from $ref notation from multi sources', function (done) {
+
+        var manager = new Manager({
+            formats: Formats
+        });
+        manager.addSchemas(Schemata);
+        manager.compile();
+        expect(manager.collections.example.schema.properties.def.properties.id.type).to.equal('string');
+        expect(manager.definitions.extendDef.schema.properties.rec.properties.someProp.type).to.equal('string');
+        done();
+    });
+
 
 });

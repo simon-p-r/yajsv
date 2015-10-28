@@ -20,7 +20,7 @@ describe('Parse', function () {
         expect(Parse.schema()).to.be.undefined();
         var obj = {};
         expect(Parse.schema(obj)).to.be.undefined();
-        expect(Parse.schema(obj, '$ref')).to.be.undefined();
+        // expect(Parse.schema(obj, '$ref')).to.be.undefined();
         done();
 
     });
@@ -35,7 +35,7 @@ describe('Parse', function () {
         copy.schema.properties[key] = 'invalid';
         expect(function () {
 
-            Parse.schema(copy, '$ref', moduleSet.definitions);
+            Parse.schema(copy, moduleSet.definitions);
         }).throws(Error);
         done();
 
@@ -51,7 +51,7 @@ describe('Parse', function () {
         copy.schema.oneOf = [key];
         expect(function () {
 
-            Parse.schema(copy, '$ref', moduleSet.definitions);
+            Parse.schema(copy, moduleSet.definitions);
         }).throws(Error);
         done();
 
@@ -62,7 +62,7 @@ describe('Parse', function () {
         var moduleSet = new Plus({
             directory: './fixtures/schemata'
         }).moduleSet;
-        expect(Parse.schema(Schema, '$ref', moduleSet.definitions)).to.be.an.object();
+        expect(Parse.schema(Schema, moduleSet.definitions)).to.be.an.object();
         done();
 
     });
