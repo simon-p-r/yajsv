@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.3.6 - fixed broken dependencies and removed incorrect variable in cli
+
 v0.3.5 - added more tests to check properties are being created correctly, added methods to test fixtures data to see if properties are being generated
 
 v0.3.4 - no change to api however code can now allow pointing record or collection schemas to point to other record or collection schemas not just definitions.  Cleaned up dependencies and added test to show new multiple constructions of schema types
