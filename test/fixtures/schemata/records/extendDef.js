@@ -3,8 +3,8 @@
 module.exports = {
 
     metaSchema: {
-        description: 'Extendable definition schema',
-        type: 'definition',
+        description: 'Extendable record schema',
+        type: 'record',
         base: 'example',
         jsonSchema: 'v4',
         name: 'extendDef',
@@ -21,5 +21,11 @@ module.exports = {
             '$ref.rec': 'rec'
         },
         additionalProperties: false
+    },
+    methods: {
+        preSave: function (options) {
+
+            return true;
+        }
     }
 };

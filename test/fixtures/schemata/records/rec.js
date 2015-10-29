@@ -18,8 +18,14 @@ module.exports = {
             someProp: {
                 type: 'string'
             },
-            '$ref.def': 'def'
+            '$ref.otherDef': 'def'
         },
         additionalProperties: false
+    },
+    methods: {
+        postSave: function (options) {
+
+            return true;
+        }
     }
 };

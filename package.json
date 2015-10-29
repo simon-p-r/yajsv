@@ -1,6 +1,6 @@
 {
   "name": "yajsv",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "yet another json schema validator",
   "main": "lib/index.js",
   "scripts": {

@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.3.5 - added more tests to check properties are being created correctly, added methods to test fixtures data to see if properties are being generated
+
 v0.3.4 - no change to api however code can now allow pointing record or collection schemas to point to other record or collection schemas not just definitions.  Cleaned up dependencies and added test to show new multiple constructions of schema types
 
 v0.3.3 - fixed test that was missing catching base property on record type schemas, changed joi validation of incoming schemas

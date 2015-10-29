@@ -14,7 +14,7 @@ module.exports = {
         type: 'object',
         required: ['id'],
         properties: {
-            id: {
+            uid: {
                 type: 'string'
             },
             oneOf: [
@@ -22,5 +22,11 @@ module.exports = {
             ]
         },
         additionalProperties: false
+    },
+    methods: {
+        postValidate: function (options) {
+
+            return true;
+        }
     }
 };

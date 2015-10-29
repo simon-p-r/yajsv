@@ -74,15 +74,14 @@ describe('Manager', function () {
     it('should load an array of schemas', function (done) {
 
         var manager = new Manager();
-        var Schemas = [];
-        Object.keys(Schemata).forEach(function (type) {
+        var Schemas = [
 
-            Object.keys(Schemata[type]).forEach(function (name) {
-
-                Schemas.push(Schemata[type][name]);
-            });
-
-        });
+            require('./fixtures/schemata/records/extendDef.js'),
+            require('./fixtures/schemata/records/rec.js'),
+            require('./fixtures/schemata/collections/example.js'),
+            require('./fixtures/schemata/definitions/def.js'),
+            require('./fixtures/schemata/definitions/otherDef.js')
+        ];
         manager.addSchemas(Schemas);
         manager.compile();
         expect(manager.definitions).to.be.an.object();
@@ -153,8 +152,11 @@ describe('Manager', function () {
         });
         manager.addSchemas(Schemata);
         manager.compile();
-        expect(manager.collections.example.schema.properties.def.properties.id.type).to.equal('string');
-        expect(manager.definitions.extendDef.schema.properties.rec.properties.someProp.type).to.equal('string');
+        expect(manager.collections.example.schema.properties.def.properties.uid.type).to.equal('string');
+        expect(manager.records.extendDef.schema.properties.rec.properties.someProp.type).to.equal('string');
+        expect(manager.records.extendDef.methods.preSave).to.be.a.function();
+        expect(manager.records.extendDef.methods.preValidate).to.be.a.function();
+        // expect(manager.records.extendDef.methods.postSave).to.be.a.function();
         done();
     });
 

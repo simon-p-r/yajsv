@@ -26,5 +26,11 @@ module.exports = {
             '$ref.def': 'def'
         },
         additionalProperties: false
+    },
+    methods: {
+        preValidate: function (options) {
+
+        }
     }
+
 };
