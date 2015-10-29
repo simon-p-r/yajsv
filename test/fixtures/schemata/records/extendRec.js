@@ -7,7 +7,7 @@ module.exports = {
         type: 'record',
         base: 'example',
         jsonSchema: 'v4',
-        name: 'extendDef',
+        name: 'extendRec',
         version: 1
     },
 
@@ -15,10 +15,10 @@ module.exports = {
         type: 'object',
         required: ['someProp'],
         properties: {
-            someProp: {
+            newProp: {
                 type: 'string'
             },
-            '$ref.rec': 'rec'
+            '$ref': 'rec'
         },
         additionalProperties: false
     },

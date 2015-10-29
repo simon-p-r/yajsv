@@ -76,7 +76,7 @@ describe('Manager', function () {
         var manager = new Manager();
         var Schemas = [
 
-            require('./fixtures/schemata/records/extendDef.js'),
+            require('./fixtures/schemata/records/extendRec.js'),
             require('./fixtures/schemata/records/rec.js'),
             require('./fixtures/schemata/collections/example.js'),
             require('./fixtures/schemata/definitions/def.js'),
@@ -153,9 +153,9 @@ describe('Manager', function () {
         manager.addSchemas(Schemata);
         manager.compile();
         expect(manager.collections.example.schema.properties.def.properties.uid.type).to.equal('string');
-        expect(manager.records.extendDef.schema.properties.rec.properties.someProp.type).to.equal('string');
-        expect(manager.records.extendDef.methods.preSave).to.be.a.function();
-        expect(manager.records.extendDef.methods.preValidate).to.be.a.function();
+        expect(manager.records.extendRec.schema.properties.rec.properties.someProp.type).to.equal('string');
+        expect(manager.records.extendRec.methods.preSave).to.be.a.function();
+        expect(manager.records.extendRec.methods.preValidate).to.be.a.function();
         // expect(manager.records.extendDef.methods.postSave).to.be.a.function();
         done();
     });

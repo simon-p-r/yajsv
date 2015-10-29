@@ -13,12 +13,19 @@ module.exports = {
 
     schema: {
         type: 'object',
-        required: ['someProp'],
+        required: ['rec'],
         properties: {
-            someProp: {
-                type: 'string'
-            },
-            '$ref.otherDef': 'def'
+            rec: {
+                type: 'object',
+                properties: {
+                    someProp: {
+                        type: 'string'
+                    },
+                    '$ref.def': 'def'
+                },
+                additionalProperties: false,
+                required: ['someProp']
+            }
         },
         additionalProperties: false
     },

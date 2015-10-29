@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.3.8 - made parse interpret different syntax for reading $ref to not embed by a reference 
+
 v0.3.7 - fixed missing hoek module
 
 v0.3.6 - fixed broken dependencies and removed incorrect variable in cli
