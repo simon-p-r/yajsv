@@ -84,7 +84,13 @@ describe('Manager', function () {
         ];
         manager.addSchemas(Schemas);
         manager.compile();
-        expect(manager.definitions).to.be.an.object();
+        expect(manager.collections.example.schema.properties.def.properties.uid.type).to.equal('string');
+        expect(manager.records.extendRec.schema.properties.def.properties.uid.type).to.equal('string');
+        expect(manager.records.extendRec.schema.properties.id.type).to.equal('string');
+        expect(manager.records.extendRec.schema.properties.rec.properties.someProp.type).to.equal('string');
+        expect(manager.records.extendRec.methods.preSave).to.be.a.function();
+        expect(manager.records.extendRec.methods.preValidate).to.be.a.function();
+        // expect(manager.records.extendDef.methods.postSave).to.be.a.function();
         done();
 
     });
@@ -153,6 +159,8 @@ describe('Manager', function () {
         manager.addSchemas(Schemata);
         manager.compile();
         expect(manager.collections.example.schema.properties.def.properties.uid.type).to.equal('string');
+        expect(manager.records.extendRec.schema.properties.def.properties.uid.type).to.equal('string');
+        expect(manager.records.extendRec.schema.properties.id.type).to.equal('string');
         expect(manager.records.extendRec.schema.properties.rec.properties.someProp.type).to.equal('string');
         expect(manager.records.extendRec.methods.preSave).to.be.a.function();
         expect(manager.records.extendRec.methods.preValidate).to.be.a.function();

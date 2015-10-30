@@ -1,6 +1,8 @@
 ### Changelog
 
-v0.3.8 - made parse interpret different syntax for reading $ref to not embed by a reference 
+v0.3.9 - added more tests to check values of objects generated, found bug with record schemas not extending properly.  Bug fixed by storing unresolved items in a map and then looping through the map.  Fixed travis file for node 5 testing as well.
+
+v0.3.8 - made parse interpret different syntax for reading $ref to not embed by a reference
 
 v0.3.7 - fixed missing hoek module
 
