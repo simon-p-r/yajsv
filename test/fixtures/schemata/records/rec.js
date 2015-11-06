@@ -5,7 +5,6 @@ module.exports = {
     metaSchema: {
         description: 'Rec schema',
         type: 'record',
-        base: 'example',
         jsonSchema: 'v4',
         name: 'rec',
         version: 1

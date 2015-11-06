@@ -1,50 +1,50 @@
 'use strict';
 
-var ChildProcess = require('child_process');
-var Code = require('code');
-var Lab = require('lab');
-var Path = require('path');
-var Rmdir = require('rimraf');
+const ChildProcess = require('child_process');
+const Code = require('code');
+const Lab = require('lab');
+const Path = require('path');
+const Rmdir = require('rimraf');
 
 // Declare internals
-var internals = {};
+const internals = {};
 
 
 // Test shortcuts
-var lab = exports.lab = Lab.script();
-var describe = lab.describe;
-var it = lab.it;
-var expect = Code.expect;
+const lab = exports.lab = Lab.script();
+const describe = lab.describe;
+const it = lab.it;
+const expect = Code.expect;
 
 
-describe('Cli', function () {
+describe('Cli', () => {
 
-    var yajsvPath = Path.join(__dirname, '..', 'bin', 'yajsv');
-    var outDir = Path.join(__dirname, '..', 'output');
-    var inputDir = './test/fixtures/schemata';
+    const yajsvPath = Path.join(__dirname, '..', 'bin', 'yajsv');
+    const outDir = Path.join(__dirname, '..', 'output');
+    const inputDir = './test/fixtures/schemata';
 
-    lab.before(function (done) {
+    lab.before((done) => {
 
         Rmdir.sync(outDir);
         done();
     });
 
-    it('runs command to validate and persist all schemas to disk', function (done) {
+    it('runs command to validate and persist all schemas to disk', (done) => {
 
-        var cli = ChildProcess.spawn('node', [yajsvPath, '-i', inputDir]);
-        var output = '';
+        const cli = ChildProcess.spawn('node', [yajsvPath, '-i', inputDir]);
+        let output = '';
 
-        cli.stdout.on('data', function (data) {
+        cli.stdout.on('data', (data) => {
 
             output += data;
         });
 
-        cli.stderr.on('data', function (data) {
+        cli.stderr.on('data', (data) => {
 
             expect(data).to.not.exist();
         });
 
-        cli.once('close', function (code, signal) {
+        cli.once('close', (code, signal) => {
 
             expect(code).to.equal(0);
             expect(signal).to.not.exist();

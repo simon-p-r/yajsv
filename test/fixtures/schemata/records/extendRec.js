@@ -5,7 +5,6 @@ module.exports = {
     metaSchema: {
         description: 'Extendable record schema',
         type: 'record',
-        base: 'example',
         jsonSchema: 'v4',
         name: 'extendRec',
         version: 1
