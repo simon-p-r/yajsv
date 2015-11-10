@@ -17,8 +17,7 @@ module.exports = {
         properties: {
             newProp: {
                 type: 'string'
-            },
-            '$ref': 'rec'
+            }
         },
         additionalProperties: false
     },
