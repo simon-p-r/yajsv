@@ -6,6 +6,7 @@ module.exports = {
         description: 'Extendable record schema',
         type: 'record',
         jsonSchema: 'v4',
+        base: 'relationship',
         name: 'extendRec',
         version: 1
     },

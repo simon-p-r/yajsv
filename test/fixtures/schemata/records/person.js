@@ -7,6 +7,7 @@ module.exports = {
         type: 'record',
         jsonSchema: 'v4',
         name: 'person',
+        base: 'entity',
         version: 1
     },
 
