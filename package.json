@@ -1,6 +1,6 @@
 {
   "name": "yajsv",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "yet another json schema validator",
   "main": "lib/index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "license": "BSD-3-Clause",
   "devDependencies": {
     "code": "^2.0.1",
-    "lab": "^7.2.0",
+    "lab": "^7.3.0",
     "rimraf": "^2.4.3"
   },
   "dependencies": {

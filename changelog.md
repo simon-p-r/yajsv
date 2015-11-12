@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.5.1 - allowed underscore names for record and definition schemas
+
 v0.5.0 - reverted changes form v0.3.8, records are constructed by their own properties plus definitions even of themselves.  Fixed bug with maximum call stack occurring when recursively looping through object that shared the same name.  Internal object cache separates objects into types to avoid this issue.
 
 v0.4.0 - removed collection schemas logic, only record and definitions schemas are resolved from $refs.  Update dependencies and removed unneeded dependencies.
