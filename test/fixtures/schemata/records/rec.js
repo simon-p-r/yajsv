@@ -8,6 +8,7 @@ module.exports = {
         jsonSchema: 'v4',
         name: 'rec',
         base: 'lookup',
+        rids: ['someProp'],
         version: 1
     },
 

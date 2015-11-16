@@ -8,6 +8,7 @@ module.exports = {
         jsonSchema: 'v4',
         name: 'person',
         base: 'entity',
+        rids: ['name', 'age'],
         version: 1
     },
 

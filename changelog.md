@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.6.0 - minor bump due to more changes to input validation of raw schemas, they must have a RIDS property in order to construct unique identifier
+
 v0.5.2 - allowed RIDS array of metaSchema property to define how an id is constructed from schema
 
 v0.5.1 - allowed underscore names for record and definition schemas
