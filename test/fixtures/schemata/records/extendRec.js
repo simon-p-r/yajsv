@@ -8,6 +8,7 @@ module.exports = {
         jsonSchema: 'v4',
         base: 'relationship',
         name: 'extendRec',
+        rids: ['newProp'],
         version: 1
     },
 
