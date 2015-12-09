@@ -26,9 +26,9 @@ describe('Parse', () => {
 
     it('should throw an error if lookup type does not exist within an object of definitions', (done) => {
 
-        const moduleSet = new Plus({
+        const moduleSet = Plus({
             directory: './fixtures/schemata'
-        }).moduleSet;
+        });
         const copy = Hoek.clone(Schema);
         const key = '$ref.createdBy';
         copy.schema.properties[key] = 'invalid';
@@ -42,9 +42,9 @@ describe('Parse', () => {
 
     it('should throw an error if lookup type does not exist within an array of definitions', (done) => {
 
-        const moduleSet = new Plus({
+        const moduleSet = Plus({
             directory: './fixtures/schemata'
-        }).moduleSet;
+        });
         const copy = Hoek.clone(Schema);
         const key = '$ref.createdBy';
         copy.schema.oneOf = [key];
@@ -58,9 +58,9 @@ describe('Parse', () => {
 
     it('should return a parsed schema', (done) => {
 
-        const moduleSet = new Plus({
+        const moduleSet = Plus({
             directory: './fixtures/schemata'
-        }).moduleSet;
+        });
         expect(Parse.schema(Schema, moduleSet.definitions)).to.be.an.object();
         done();
 

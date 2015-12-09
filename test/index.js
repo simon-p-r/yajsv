@@ -6,9 +6,9 @@ const Lab = require('lab');
 const Manager = require('../lib/index.js');
 const Plus = require('require-plus');
 
-const Schemata = new Plus({
+const Schemata = Plus({
     directory: './fixtures/schemata'
-}).moduleSet;
+});
 const Formats = require('./fixtures/formats.js');
 
 // Set-up lab
