@@ -9,7 +9,6 @@ const Rmdir = require('rimraf');
 // Declare internals
 const internals = {};
 
-
 // Test shortcuts
 const lab = exports.lab = Lab.script();
 const describe = lab.describe;
@@ -22,12 +21,6 @@ describe('Cli', () => {
     const yajsvPath = Path.join(__dirname, '..', 'bin', 'yajsv');
     const outDir = Path.join(__dirname, '..', 'output');
     const inputDir = './test/fixtures/schemata';
-
-    lab.before((done) => {
-
-        Rmdir.sync(outDir);
-        done();
-    });
 
     it('runs command to validate and persist all schemas to disk', (done) => {
 

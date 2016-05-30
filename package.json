@@ -1,6 +1,6 @@
 {
   "name": "yajsv",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "yet another json schema validator",
   "main": "lib/index.js",
   "scripts": {
@@ -20,20 +20,20 @@
   "author": "simon-p-r <simon.ricaldone@circabs.com> (https://github.com/simon-p-r)",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "code": "^2.0.1",
-    "lab": "^8.0.0",
-    "rimraf": "^2.4.4"
+    "code": "^3.0.0",
+    "lab": "^10.7.1",
+    "rimraf": "^2.5.2"
   },
   "dependencies": {
-    "basic-utils": "^1.1.0",
-    "bossy": "^2.0.0",
+    "basic-utils": "^1.5.2",
+    "bossy": "^3.0.0",
     "deepmerge": "^0.2.10",
-    "hoek": "^3.0.4",
-    "joi": "^7.0.1",
-    "require-plus": "^2.0.0",
-    "z-schema": "^3.16.1"
+    "hoek": "^4.0.0",
+    "joi": "^8.4.0",
+    "require-plus": "^2.1.0",
+    "z-schema": "^3.17.0"
   },
   "bin": {
-    "yajsv": "./bin/yajsv"
+    "yajsv": "./bin/yajsv.js"
   }
 }

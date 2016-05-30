@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.7.0 - updated dependencies, travis file and cleaned up
+
 v0.6.1 - updated dependencies
 
 v0.6.0 - minor bump due to more changes to input validation of raw schemas, they must have a RIDS property in order to construct unique identifier

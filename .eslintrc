@@ -1,7 +1,0 @@
-{
-    "extends": "./node_modules/lab/lib/linters/eslint/.eslintrc",
-    "rules": {
-        "no-new": 0,
-        "camelcase": 0
-    }
-}
