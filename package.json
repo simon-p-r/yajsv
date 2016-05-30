@@ -34,6 +34,6 @@
     "z-schema": "^3.17.0"
   },
   "bin": {
-    "yajsv": "./bin/yajsv.js"
+    "yajsv": "./bin/yajsv"
   }
 }
