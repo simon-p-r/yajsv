@@ -4,7 +4,8 @@
   "description": "yet another json schema validator",
   "main": "lib/index.js",
   "scripts": {
-    "test": "lab -a code -v -t 100 -L"
+    "test": "lab -a code -v -t 100 -L",
+    "coveralls": "lab -r lcov | coveralls"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -21,6 +22,7 @@
   "license": "BSD-3-Clause",
   "devDependencies": {
     "code": "^4.0.0",
+    "coveralls": "^2.11.14",
     "lab": "^11.1.0"
   },
   "dependencies": {
