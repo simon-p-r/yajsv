@@ -3,7 +3,6 @@
 [![Current Version](https://img.shields.io/npm/v/yajsv.svg?maxAge=1000)](https://www.npmjs.org/package/yajsv)
 [![dependency Status](https://img.shields.io/david/simon-p-r/yajsv.svg?maxAge=1000)](https://david-dm.org/simon-p-r/yajsv)
 [![devDependency Status](https://img.shields.io/david/dev/simon-p-r/yajsv.svg?maxAge=1000)](https://david-dm.org/simon-p-r/yajsv)
-[![Build Status](https://travis-ci.org/simon-p-r/yajsv.svg?branch=master)](https://travis-ci.org/simon-p-r/yajsv)
 [![Coveralls](https://img.shields.io/coveralls/simon-p-r/yajsv.svg?maxAge=1000)](https://coveralls.io/github/simon-p-r/yajsv)
 
 Hapi plugin for [json-schema-models](https://github.com/simon-p-r/json-schema-models)
