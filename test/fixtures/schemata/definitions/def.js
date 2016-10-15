@@ -24,7 +24,7 @@ module.exports = {
         additionalProperties: false
     },
     methods: {
-        postValidate: function (options) {
+        postValidate: function () {
 
             return true;
         }

@@ -18,8 +18,7 @@ describe('Parse', () => {
     it('should return undefined when argument object argument is not an object', (done) => {
 
         expect(Parse.schema()).to.be.undefined();
-        const obj = {};
-        expect(Parse.schema(obj)).to.be.undefined();
+        expect(Parse.schema({})).to.be.undefined();
         done();
 
     });

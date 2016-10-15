@@ -4,7 +4,7 @@ const ChildProcess = require('child_process');
 const Code = require('code');
 const Lab = require('lab');
 const Path = require('path');
-const Rmdir = require('rimraf');
+const Utils = require('basic-utils');
 
 // Declare internals
 const internals = {};
@@ -25,23 +25,26 @@ describe('Cli', () => {
     it('runs command to validate and persist all schemas to disk', (done) => {
 
         const cli = ChildProcess.spawn('node', [yajsvPath, '-i', inputDir]);
-        let output = '';
+        let stdout = '';
+        let stderr = '';
 
         cli.stdout.on('data', (data) => {
 
-            output += data;
+            stdout += data;
         });
 
         cli.stderr.on('data', (data) => {
 
-            expect(data).to.not.exist();
+            stderr += data;
         });
 
         cli.once('close', (code, signal) => {
 
             expect(code).to.equal(0);
             expect(signal).to.not.exist();
-            Rmdir.sync(outDir);
+            expect(stdout).to.exist();
+            expect(stderr).to.have.length(0);
+            Utils.rmDirSync(outDir);
             done();
         });
     });
