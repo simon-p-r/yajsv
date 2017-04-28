@@ -7,11 +7,9 @@
 [![devDependency Status](https://img.shields.io/david/dev/simon-p-r/yajsv.svg?maxAge=1000)](https://david-dm.org/simon-p-r/yajsv)
 [![Coveralls](https://img.shields.io/coveralls/simon-p-r/yajsv.svg?maxAge=1000)](https://coveralls.io/github/simon-p-r/yajsv)
 
-Hapi plugin for [json-schema-models](https://github.com/simon-p-r/json-schema-models)
 
 
-Unstable changing api, originally a validation library hence the name but now a module that pre-processes schemas into json-schemas.  Module now only works with node version 4 or greater due to use of ES6 features.  This module constructs an abstraction from json-schema to allow for more composable schemas from smaller subschemas.
-
+Unstable changing api, wrapper interface to z-schema
 
 ### Example usage
 
