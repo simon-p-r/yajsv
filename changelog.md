@@ -1,5 +1,7 @@
 ### Changelog
 
+v0.7.4 - bumped dependencies and fixed readme file
+
 v0.7.0 - updated dependencies, travis file and cleaned up
 
 v0.6.1 - updated dependencies

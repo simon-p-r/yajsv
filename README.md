@@ -10,48 +10,20 @@
 Hapi plugin for [json-schema-models](https://github.com/simon-p-r/json-schema-models)
 
 
-
-options object must contain the following properties
-+ indexes - boolean to confirm whether indexes should be built or not
-+ mongo
-   + name - mongodb name
-   + url - mongodb url string (host and port)
-   + options - mongodb connection options
-   + collections - array of objects with following properties
-       + name - string name of collection
-       + indexes - array of indexes to create
-       + options - valid options object for mongodb driver createCollection method
-+ schemata - directory containing schemas
-+ formats - path to formats file
-
-Plugin exposes 2 methods
-
-##### addSchemas via server.dataStore.schema.addSchemas
-
-##### addFormats via server.dataStore.schema.addFormats
-
-These methods can be used by other plugins to dynamically load more internal schema / models
-
-##### Todo
-
-+ Improve interface to z-schema
-+ Manage plugin dependencies better
-
-Yet another json validator
-
 Unstable changing api, originally a validation library hence the name but now a module that pre-processes schemas into json-schemas.  Module now only works with node version 4 or greater due to use of ES6 features.  This module constructs an abstraction from json-schema to allow for more composable schemas from smaller subschemas.
+
 
 ### Example usage
 
 ```js
-var Manager = require('yajsv');  // Load module
-var schemas = require('/path/to/schemas'); // Load schemas either in an array or object sets
-var manager = new Manager({
+const Manager = require('yajsv');  // Load module
+const schemas = require('/path/to/schemas'); // Load schemas either in an array or object sets
+const manager = new Manager({
     formats: {} // optional object to register custom formats
 });  // create constructor
 manager.addSchemas(schemas);  // create schemas for validation
 manager.addFormats(formats); // add a formats object to be registering with z-schema
-var results = manager.compile(); // build schemas based on inputted schemas
+const results = manager.compile(); // build schemas based on inputted schemas
 
 ```
 
