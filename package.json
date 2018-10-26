@@ -26,7 +26,7 @@
     "lab": "^13.0.2"
   },
   "dependencies": {
-    "basic-utils": "^1.7.4",
+    "basic-utils": "^2.1.2",
     "bossy": "^3.0.4",
     "hoek": "^4.1.1",
     "joi": "^10.4.1",
