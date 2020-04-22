@@ -22,7 +22,7 @@
   "license": "BSD-3-Clause",
   "devDependencies": {
     "code": "^4.0.0",
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.13",
     "lab": "^13.0.2"
   },
   "dependencies": {
